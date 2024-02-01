@@ -1,0 +1,5 @@
+beautifulsoup4
+decouple
+PyQt5
+qdarkstyle
+requests
