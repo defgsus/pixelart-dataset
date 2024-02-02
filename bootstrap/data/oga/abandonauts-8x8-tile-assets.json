@@ -9,6 +9,223 @@
           "offset_y": 0,
           "patch_size_x": 8,
           "patch_size_y": 8,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        },
+        {
+          "offset_x": 104,
+          "offset_y": 8,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "size_x": 1,
+          "size_y": 3,
+          "spacing_x": 0,
+          "spacing_y": 8
+        },
+        {
+          "offset_x": 128,
+          "offset_y": 8,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "size_x": 2,
+          "size_y": 3,
+          "spacing_x": 0,
+          "spacing_y": 8
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/astro.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 10,
+          "patch_size_y": 10,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/battery.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 10,
+          "patch_size_y": 10,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/beamsocket.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 8,
+          "patch_size_y": 8,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/dust.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 6,
+          "patch_size_y": 6,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/editorblock.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 8,
+          "patch_size_y": 8,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/explosion.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/explosion2.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/pit.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/pod.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/pod1.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 10,
+          "patch_size_y": 12,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/portrait.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 24,
+          "patch_size_y": 24,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/powerlight.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 8,
+          "patch_size_y": 8,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "abandonauts_assets/rocks.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 6,
+          "patch_size_y": 6,
+          "size_x": 0,
+          "size_y": 0,
           "spacing_x": 0,
           "spacing_y": 0
         }

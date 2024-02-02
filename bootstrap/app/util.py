@@ -1,5 +1,5 @@
 from copy import deepcopy
-from typing import List, Generator, Tuple
+from typing import List, Generator, Tuple, Optional
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -17,8 +17,11 @@ DEFAULT_TILING = {
 }
 
 
-def get_default_tiling(image_size: QSize):
+def get_default_tiling(image_size: Optional[QSize] = None):
     tiling = deepcopy(DEFAULT_TILING)
+
+    if image_size is None:
+        return tiling
 
     min_size = min(image_size.width(), image_size.height())
     max_size = max(image_size.width(), image_size.height())

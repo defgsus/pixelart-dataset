@@ -40,7 +40,7 @@ class ImagePatchWidget(QWidget):
                     self.setGeometry(r)
 
             self._image_data = image_data
-            self._tiling_index = min(self._tiling_index, len(self._image_data["tilings"]))
+            self._tiling_index = max(0, min(self._tiling_index, len(self._image_data["tilings"]) - 1))
             self._tiling = None
             if self._image_data["tilings"]:
                 self._tiling = Tiling(self._image.size(), self._image_data["tilings"][self._tiling_index], zoom=self._zoom)

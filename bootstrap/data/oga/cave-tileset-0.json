@@ -9,6 +9,48 @@
           "offset_y": 0,
           "patch_size_x": 16,
           "patch_size_y": 16,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        },
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 48,
+          "patch_size_y": 48,
+          "size_x": 2,
+          "size_y": 1,
+          "spacing_x": 0,
+          "spacing_y": 0
+        },
+        {
+          "offset_x": 0,
+          "offset_y": 48,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "size_x": 1,
+          "size_y": 4,
+          "spacing_x": 0,
+          "spacing_y": 0
+        },
+        {
+          "offset_x": 64,
+          "offset_y": 112,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "size_x": 1,
+          "size_y": 1,
+          "spacing_x": 0,
+          "spacing_y": 0
+        },
+        {
+          "offset_x": 48,
+          "offset_y": 63,
+          "patch_size_x": 48,
+          "patch_size_y": 48,
+          "size_x": 1,
+          "size_y": 1,
           "spacing_x": 0,
           "spacing_y": 0
         }

@@ -87,6 +87,7 @@ class ImagePatchEditorControls(QWidget):
         self._tilings = []
         self._image_size: Optional[QSize] = None
         self._do_listen_value_change = True
+        self._do_listen_tab_click = True
 
         self._create_widgets()
 
@@ -102,17 +103,21 @@ class ImagePatchEditorControls(QWidget):
         self.tiling_tab = QTabBar(self)
         l.addWidget(self.tiling_tab)
         self.tiling_tab.tabBarClicked.connect(self._tab_clicked)
+        self.tiling_tab.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tiling_tab.customContextMenuRequested.connect(self._tab_context_menu)
 
         self._widgets = {}
         for name in self.XY_PARAMS:
             lh = QHBoxLayout()
             l.addLayout(lh)
             lh.addWidget(QLabel(name, self))
+
+            min_value = 1 if name in ("patch_size",) else 0
             spin_x = QSpinBox(self)
-            spin_x.setRange(0, 2**24)
+            spin_x.setRange(min_value, 2**24)
             lh.addWidget(spin_x)
             spin_y = QSpinBox(self)
-            spin_y.setRange(0, 2**24)
+            spin_y.setRange(min_value, 2**24)
             spin_y.setDisabled(True)
             lh.addWidget(spin_y)
 
@@ -141,15 +146,31 @@ class ImagePatchEditorControls(QWidget):
         if not self._tilings:
             for w in self._widgets.values():
                 w.setDisabled(True)
+        else:
+            self._update_xy_widgets(self._tilings[self.tiling_tab.currentIndex()])
 
     def _tab_clicked(self, index: int):
-        if self._tilings and index < len(self._tilings):
-            default_tiling = deepcopy(self._tilings[index])
+        if not self._do_listen_tab_click:
+            return
+
+        if index < 0:
+            for w in self._widgets.values():
+                w.setDisabled(True)
+            return
+
+        if self._tilings and self.tiling_tab.currentIndex() < len(self._tilings):
+            default_tiling = deepcopy(self._tilings[self.tiling_tab.currentIndex()])
+            default_tiling.pop("ignore", None)
         else:
             default_tiling = get_default_tiling(self._image_size)
 
         if index == self.tiling_tab.count() - 1:
-            self.set_tilings(self._tilings + [default_tiling], self._image_size)
+            try:
+                self._do_listen_tab_click = False
+                self.set_tilings(self._tilings + [default_tiling], self._image_size)
+            finally:
+                self._do_listen_tab_click = True
+
             self.signal_tilings_changed.emit(self._tilings)
             self.signal_tiling_selected.emit(len(self._tilings) - 1)
             return
@@ -161,6 +182,24 @@ class ImagePatchEditorControls(QWidget):
             for w in self._widgets.values():
                 w.setEnabled(True)
 
+        self._update_xy_widgets(data)
+
+        self.signal_tiling_selected.emit(index)
+
+    def _tab_context_menu(self, pos: QPoint):
+        idx = self.tiling_tab.currentIndex()
+        menu = QMenu()
+        menu.addAction(f"Remove #{idx + 1}", partial(self._remove_tiling, idx))
+        menu.exec(self.tiling_tab.mapToGlobal(pos))
+
+    def _remove_tiling(self, index: int):
+        if index < len(self._tilings):
+            tilings = self._tilings.copy()
+            tilings.pop(index)
+            self.set_tilings(tilings, self._image_size)
+            self.signal_tilings_changed.emit(self._tilings)
+
+    def _update_xy_widgets(self, data):
         try:
             self._do_listen_value_change = False
 
@@ -170,8 +209,6 @@ class ImagePatchEditorControls(QWidget):
 
         finally:
             self._do_listen_value_change = True
-
-        self.signal_tiling_selected.emit(index)
 
     def _slot_value_changed(self, name: str, value: int):
         if not self._do_listen_value_change:

@@ -9,6 +9,33 @@
           "offset_y": 0,
           "patch_size_x": 20,
           "patch_size_y": 20,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        },
+        {
+          "offset_x": 0,
+          "offset_y": 120,
+          "patch_size_x": 40,
+          "patch_size_y": 40,
+          "size_x": 2,
+          "size_y": 1,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "city_tileset/city_tileset/city_bg.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 160,
+          "patch_size_x": 20,
+          "patch_size_y": 20,
+          "size_x": 0,
+          "size_y": 0,
           "spacing_x": 0,
           "spacing_y": 0
         }
