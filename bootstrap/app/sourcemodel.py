@@ -9,14 +9,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from bootstrap.config import SOURCE_URLS, BOOTSTRAP_STORAGE_PATH
-
-
-DEFAULT_TILING = {
-    "offset": [0, 0],
-    "patch_size": [16, 16],
-    "spacing": [0, 0],
-}
+from bootstrap.config import SOURCE_URLS, BOOTSTRAP_WEBCACHE_PATH, BOOTSTRAP_DATA_PATH
 
 
 class SourceModel(QAbstractItemModel):
@@ -24,7 +17,7 @@ class SourceModel(QAbstractItemModel):
     def __init__(self, parent):
         super().__init__(parent)
         self.urls = SOURCE_URLS
-        self.storage_path = BOOTSTRAP_STORAGE_PATH
+        self.webcache_path = BOOTSTRAP_WEBCACHE_PATH
 
         self._sources = []
         self._scan_sources()
@@ -58,13 +51,22 @@ class SourceModel(QAbstractItemModel):
         elif role == Qt.ItemDataRole.UserRole:
             return source
 
+        elif role == Qt.ItemDataRole.BackgroundRole:
+            if any(img["tilings"] for img in source["images"]):
+                return QColor(24, 48, 24)
+        elif role == Qt.ItemDataRole.FontRole:
+            if any(img["tilings"] for img in source["images"]):
+                font = QFont()
+                font.setBold(True)
+                return font
+
     def _scan_sources(self):
         source_image_map = {}
 
         for url in sorted(self.urls):
 
             name = url.split("/")[-1]
-            folder = self.storage_path / name
+            folder = self.webcache_path / "oga" / name
 
             for file in sorted(folder.rglob("**/*")):
                 if file.suffix.lower() in (".png", ".gif") and not file.name.startswith("."):
@@ -72,18 +74,37 @@ class SourceModel(QAbstractItemModel):
                     if url not in source_image_map:
                         source_image_map[url] = {
                             "url": url,
-                            "name": urllib.parse.unquote(name),
-                            "folder": str(folder),
+                            "name": f"oga/{urllib.parse.unquote(name)}",
+                            "web_folder": str(folder),
+                            "data_filename": str(BOOTSTRAP_DATA_PATH / f"oga/{name}.json"),
                             "images": [],
                         }
+                        if Path(source_image_map[url]["data_filename"]).exists():
+                            source_image_map[url].update(
+                                json.loads(Path(source_image_map[url]["data_filename"]).read_text())
+                            )
+                        # temporarily convert images to dict for quicker lookup
+                        source_image_map[url]["images_map"] = {
+                            img["filename"]: {
+                                **img,
+                                "filename": str(Path(source_image_map[url]["web_folder"]) / img["filename"])
+                            }
+                            for img in source_image_map[url]["images"]
+                        }
 
-                    source_image_map[url]["images"].append({
-                        "filename": str(file),
-                        "tilings": [
-                            deepcopy(DEFAULT_TILING),
-                        ],
-                    })
+                    relative_filename = str(file.relative_to(BOOTSTRAP_WEBCACHE_PATH))
+                    if relative_filename not in source_image_map[url]["images_map"]:
+                        source_image_map[url]["images_map"][relative_filename] = {
+                            "filename": str(file),
+                            "tilings": [],
+                        }
 
         self._sources.clear()
         for key in sorted(source_image_map):
+            source_image_map[key]["images"] = list(source_image_map[key].pop("images_map").values())
             self._sources.append(source_image_map[key])
+
+    def update_source(self, source: dict):
+        for i, src in enumerate(self._sources):
+            if src["name"] == source["name"]:
+                self._sources[i] = source

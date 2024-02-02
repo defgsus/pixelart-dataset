@@ -7,8 +7,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from bootstrap.config import SOURCE_URLS, BOOTSTRAP_STORAGE_PATH
-from .sourceimagemodel import SourceImageModel
 from .util import get_patch_rects
 
 
@@ -18,25 +16,31 @@ class ImagePatchWidget(QWidget):
         super().__init__(*args, **kwargs)
         self._image_data: Optional[dict] = None
         self._image: Optional[QPixmap] = None
-        self._zoom = 1
+        self._zoom = 3
 
     def set_image(self, image_data: Optional[dict] = None):
-        self._image_data = image_data
-        if self._image_data is None:
+        if image_data is None:
+            self._image_data = image_data
             self._image = None
             self.setGeometry(QRect(0, 0, 10, 10))
         else:
-            self._image = QPixmap(self._image_data["filename"])
-            r = self._image.rect()
-            self.setGeometry(QRect(QPoint(0, 0), QPoint(r.width() * self._zoom, r.height() * self._zoom)))
+            if not self._image_data or self._image_data["filename"] != image_data["filename"]:
+                self._image = QPixmap(image_data["filename"])
+                r = self._image.rect()
+                r = QRect(QPoint(0, 0), QPoint(r.width() * self._zoom, r.height() * self._zoom))
+                if self.geometry() != r:
+                    self.setGeometry(r)
+            self._image_data = image_data
+
         self.update()
-        print(self._zoom, self._image_data)
 
     def set_zoom(self, zoom: int):
         self._zoom = zoom
         if self._image is not None:
             r = self._image.rect()
-            self.setGeometry(QRect(QPoint(0, 0), QPoint(r.width() * self._zoom, r.height() * self._zoom)))
+            r = QRect(QPoint(0, 0), QPoint(r.width() * self._zoom, r.height() * self._zoom))
+            if self.geometry() != r:
+                self.setGeometry(r)
         self.update()
 
     def paintEvent(self, event: QPaintEvent):

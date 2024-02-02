@@ -8,7 +8,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from bootstrap.config import SOURCE_URLS, BOOTSTRAP_STORAGE_PATH
+from bootstrap.config import SOURCE_URLS, BOOTSTRAP_WEBCACHE_PATH
 
 
 class SourceImageModel(QAbstractItemModel):
@@ -39,10 +39,20 @@ class SourceImageModel(QAbstractItemModel):
         if not index.isValid():
             return None
 
-        filename = self._source["images"][index.row()]["filename"]
+        source_image =  self._source["images"][index.row()]
+        filename = source_image["filename"]
 
         if role == Qt.ItemDataRole.DisplayRole:
-            return str(Path(filename).relative_to(self._source["folder"]))
+            return str(Path(filename).relative_to(self._source["web_folder"]))
 
         elif role == Qt.ItemDataRole.DecorationRole:
             return QPixmap(filename).scaledToWidth(100)
+
+        elif role == Qt.ItemDataRole.BackgroundRole:
+            if source_image["tilings"]:
+                return QColor(24, 48, 24)
+        elif role == Qt.ItemDataRole.FontRole:
+            if source_image["tilings"]:
+                font = QFont()
+                font.setBold(True)
+                return font

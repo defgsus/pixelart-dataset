@@ -7,7 +7,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from bootstrap.config import SOURCE_URLS, BOOTSTRAP_STORAGE_PATH
+from bootstrap.config import SOURCE_URLS, BOOTSTRAP_WEBCACHE_PATH
 from .sourcemodel import SourceModel
 
 
@@ -18,7 +18,7 @@ class SourceSelect(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.urls = SOURCE_URLS
-        self.storage_path = BOOTSTRAP_STORAGE_PATH
+        self.storage_path = BOOTSTRAP_WEBCACHE_PATH
 
         self._create_widgets()
 
@@ -36,4 +36,6 @@ class SourceSelect(QWidget):
         data = self.model.data(index, role=Qt.ItemDataRole.UserRole)
         self.signal_source_selected.emit(data)
 
-
+    def update_source(self, source: dict):
+        self.model.update_source(source)
+        self.update()

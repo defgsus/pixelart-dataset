@@ -4,16 +4,18 @@ import tempfile
 import decouple
 
 
-BOOTSTRAP_STORAGE_PATH = Path(
-    decouple.config(
-        "BOOTSTRAP_STORAGE_PATH",
-        default=str(Path(tempfile.gettempdir()) / "pixelart-dataset"),
-        cast=str,
-    )
+BOOTSTRAP_BASE_PATH = Path(__file__).resolve().parent
+
+BOOTSTRAP_WEBCACHE_PATH = Path(
+    decouple.config("BOOTSTRAP_WEBCACHE_PATH", default=str(BOOTSTRAP_BASE_PATH / "web-cache"))
+).expanduser()
+
+BOOTSTRAP_DATA_PATH = Path(
+    decouple.config("BOOTSTRAP_DATA_PATH", default=str(BOOTSTRAP_BASE_PATH / "data"))
 ).expanduser()
 
 
-with open(Path(__file__).resolve().parent / "urls.txt") as fp:
+with open(BOOTSTRAP_DATA_PATH / "urls.txt") as fp:
     SOURCE_URLS = list(
         line.strip()
         for line in fp.readlines()

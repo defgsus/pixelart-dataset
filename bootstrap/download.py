@@ -12,7 +12,7 @@ from bootstrap import config
 
 def download_all(
         urls: List[str] = config.SOURCE_URLS,
-        storage_path: Union[str, Path] = config.BOOTSTRAP_STORAGE_PATH,
+        storage_path: Union[str, Path] = config.BOOTSTRAP_WEBCACHE_PATH,
 ):
     storage_path = Path(storage_path).expanduser()
 
@@ -37,7 +37,7 @@ def download_all(
         div = soup.find("div", {"class": "field-name-field-art-files"})
         for a in div.find_all("a"):
             url = a.attrs["href"]
-            filename = folder / url.split("/")[-1]
+            filename = folder / "oga" / url.split("/")[-1]
 
             if filename.suffix[1:].lower() not in ("png", "gif", "zip"):
                 continue
