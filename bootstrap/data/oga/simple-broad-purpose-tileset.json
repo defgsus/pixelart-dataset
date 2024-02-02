@@ -5,14 +5,16 @@
       "filename": "simples_pimples.png",
       "tilings": [
         {
+          "limit_x": 10000,
+          "limit_y": 970,
           "offset_x": 0,
-          "offset_y": 0,
+          "offset_y": 64,
           "patch_size_x": 16,
           "patch_size_y": 16,
+          "size_x": 0,
+          "size_y": 53,
           "spacing_x": 0,
-          "spacing_y": 0,
-          "limit_x": 10000,
-          "limit_y": 970
+          "spacing_y": 0
         }
       ]
     }

@@ -10,6 +10,23 @@
           "patch_size_x": 16,
           "patch_size_y": 16,
           "spacing_x": 0,
+          "spacing_y": 0,
+          "size_x": 0,
+          "size_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "background_3.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
           "spacing_y": 0
         }
       ]

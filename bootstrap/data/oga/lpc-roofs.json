@@ -1,0 +1,40 @@
+{
+  "url": "https://opengameart.org/content/lpc-roofs",
+  "images": [
+    {
+      "filename": "lpc-roofs/lpc-roofs/preview/colonial.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        },
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 96,
+          "patch_size_y": 96,
+          "size_x": 3,
+          "size_y": 1,
+          "spacing_x": 0,
+          "spacing_y": 0
+        },
+        {
+          "offset_x": 290,
+          "offset_y": 546,
+          "patch_size_x": 60,
+          "patch_size_y": 60,
+          "size_x": 1,
+          "size_y": 1,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

@@ -10,7 +10,9 @@
           "patch_size_x": 16,
           "patch_size_y": 16,
           "spacing_x": 0,
-          "spacing_y": 0
+          "spacing_y": 0,
+          "size_x": 0,
+          "size_y": 0
         }
       ]
     },
@@ -23,7 +25,9 @@
           "patch_size_x": 16,
           "patch_size_y": 16,
           "spacing_x": 0,
-          "spacing_y": 0
+          "spacing_y": 0,
+          "size_x": 0,
+          "size_y": 0
         }
       ]
     },
@@ -35,6 +39,68 @@
           "offset_y": 0,
           "patch_size_x": 16,
           "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "size_x": 0,
+          "size_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "instant_dungeon_artpack_v2_0/instant_dungeon_artpack/By Jos\u00e9 Luis Peir\u00f3 Lima/players-mages.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "instant_dungeon_artpack_v2_0/instant_dungeon_artpack/By Scott Matott/dracolich.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "instant_dungeon_artpack_v2_0/instant_dungeon_artpack/By Scott Matott/small-icons.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 8,
+          "patch_size_y": 8,
+          "size_x": 0,
+          "size_y": 0,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "instant_dungeon_artpack_v2_0/instant_dungeon_artpack/By Scott Matott/torch_key_gems.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "size_x": 0,
+          "size_y": 0,
           "spacing_x": 0,
           "spacing_y": 0
         }

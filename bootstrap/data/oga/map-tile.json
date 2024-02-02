@@ -9,6 +9,18 @@
           "offset_y": 5,
           "patch_size_x": 48,
           "patch_size_y": 48,
+          "size_x": 10,
+          "size_y": 0,
+          "spacing_x": 1,
+          "spacing_y": 1
+        },
+        {
+          "offset_x": 559,
+          "offset_y": 4,
+          "patch_size_x": 48,
+          "patch_size_y": 48,
+          "size_x": 10,
+          "size_y": 0,
           "spacing_x": 1,
           "spacing_y": 1
         }
