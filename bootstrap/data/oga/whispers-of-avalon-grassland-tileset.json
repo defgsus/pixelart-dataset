@@ -1,0 +1,60 @@
+{
+  "url": "https://opengameart.org/content/whispers-of-avalon-grassland-tileset",
+  "images": [
+    {
+      "filename": "Extra_Unfinished4_1.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "ignore": [
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              7,
+              10
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "filename": "Cliff_tileset_0.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 64,
+          "patch_size_y": 64,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "limit_x": 1000,
+          "limit_y": 500
+        }
+      ]
+    },
+    {
+      "filename": "object-%20layer_1.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

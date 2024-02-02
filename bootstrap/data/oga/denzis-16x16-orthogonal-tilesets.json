@@ -1,0 +1,170 @@
+{
+  "url": "https://opengameart.org/content/denzis-16x16-orthogonal-tilesets",
+  "images": [
+    {
+      "filename": "16x16_orthogonal_0/16x16 orthogonal/16x16_monochrome_mixed_Denzi140330-12.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "limit_x": 256,
+          "limit_y": 1000,
+          "ignore": [
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              1,
+              10
+            ]
+          ]
+        },
+        {
+          "offset_x": 256,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "limit_x": 512,
+          "limit_y": 1000
+        }
+      ]
+    },
+    {
+      "filename": "16x16_orthogonal_0/16x16 orthogonal/16x16_retrostyle_monster_legacy_Denzi100701-1.png",
+      "tilings": [
+        {
+          "offset_x": 32,
+          "offset_y": 16,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "16x16_orthogonal_0/16x16 orthogonal/16x16_ultim6_item_Denzi060817-2.PNG",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "16x16_orthogonal_0/16x16 orthogonal/16x16_characters_simple_Denzi091025-5.PNG",
+      "tilings": [
+        {
+          "offset_x": 48,
+          "offset_y": 96,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "limit_x": 256,
+          "limit_y": 1000
+        }
+      ]
+    },
+    {
+      "filename": "16x16_orthogonal_0/16x16 orthogonal/16x16_character_animated_Denzi070812-2.PNG",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 16,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "16x16_orthogonal_0/16x16 orthogonal/16x16_modern_mixed_Denzi101114-6.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "16x16_orthogonal_0/16x16 orthogonal/16x16_old_map_Denzi090523-1.PNG",
+      "tilings": [
+        {
+          "offset_x": 32,
+          "offset_y": 32,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "ignore": [
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              0,
+              19
+            ],
+            [
+              0,
+              20
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "url": "https://opengameart.org/content/undead-pirate-roguelike",
+  "images": [
+    {
+      "filename": "zombie-sheet.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "goldbeard-sheet.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "skeleton-sheet_0.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "skeleton_with_hat-sheet.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "zombie_eyepatch-sheet.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "explosions_2.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "icon_sheet.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

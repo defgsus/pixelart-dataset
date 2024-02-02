@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/stone-home-interior-tileset",
+  "images": [
+    {
+      "filename": "stone_house_interior.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 64,
+          "patch_size_y": 64,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

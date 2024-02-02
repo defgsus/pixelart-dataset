@@ -1,0 +1,50 @@
+{
+  "url": "https://opengameart.org/content/platformer-tile-sheet",
+  "images": [
+    {
+      "filename": "Platformer_tile-2018.11.14-1.png",
+      "tilings": [
+        {
+          "offset_x": 87,
+          "offset_y": 351,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 2,
+          "spacing_y": 2,
+          "limit_x": 122,
+          "limit_y": 442
+        },
+        {
+          "offset_x": 125,
+          "offset_y": 351,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 2,
+          "spacing_y": 2,
+          "limit_x": 195,
+          "limit_y": 450
+        },
+        {
+          "offset_x": 199,
+          "offset_y": 351,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 2,
+          "spacing_y": 2,
+          "limit_x": 280,
+          "limit_y": 450
+        },
+        {
+          "offset_x": 273,
+          "offset_y": 351,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 2,
+          "spacing_y": 2,
+          "limit_x": 380,
+          "limit_y": 450
+        }
+      ]
+    }
+  ]
+}

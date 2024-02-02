@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/lpc-animated-water-and-fire",
+  "images": [
+    {
+      "filename": "WaterAndFire_2.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

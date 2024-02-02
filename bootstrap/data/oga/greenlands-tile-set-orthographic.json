@@ -1,0 +1,31 @@
+{
+  "url": "https://opengameart.org/content/greenlands-tile-set-orthographic",
+  "images": [
+    {
+      "filename": "spr_Greenlands_orth_0.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "spr_Greenlands_orth_1.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

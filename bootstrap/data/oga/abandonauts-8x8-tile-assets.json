@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/abandonauts-8x8-tile-assets",
+  "images": [
+    {
+      "filename": "abandonauts_assets/tiles.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 8,
+          "patch_size_y": 8,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

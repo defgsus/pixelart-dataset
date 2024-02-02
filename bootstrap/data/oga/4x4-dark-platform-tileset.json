@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/4x4-dark-platform-tileset",
+  "images": [
+    {
+      "filename": "fit%20a%20tileset%20in%2064x64%20pixels.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 8,
+          "patch_size_y": 8,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

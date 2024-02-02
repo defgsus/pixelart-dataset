@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/perspective-walls-template",
+  "images": [
+    {
+      "filename": "perspective_walls.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 64,
+          "patch_size_y": 64,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

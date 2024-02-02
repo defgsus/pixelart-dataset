@@ -1,0 +1,57 @@
+{
+  "url": "https://opengameart.org/content/rpg-tilesets-pack",
+  "images": [
+    {
+      "filename": "NessTilesPack/tiles/wooden_bridge_horizontal_rail.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "NessTilesPack/tiles/temple_floor.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "NessTilesPack/tiles/dark_tiles.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "NessTilesPack/tiles/chess_tiles.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

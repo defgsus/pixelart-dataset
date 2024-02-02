@@ -1,0 +1,83 @@
+{
+  "url": "https://opengameart.org/content/underworld-load-comprehensive-top-view-rpg-tileset-32x32-some-16x24-16x16",
+  "images": [
+    {
+      "filename": "underworld_load_5/underworld_load/underworld_load-atlas-32x32.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "underworld_load_5/underworld_load/underworld_load-extra-32x32.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "underworld_load_5/underworld_load/underworld_load-lomem-32x32.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "underworld_load_5/underworld_load/underworld_load-sprites-16x16.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "underworld_load_5/underworld_load/underworld_load-sprites-flameskull-32x32.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "underworld_load_5/underworld_load/underworld_load-sprites-32x48.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 16,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 16
+        }
+      ]
+    }
+  ]
+}

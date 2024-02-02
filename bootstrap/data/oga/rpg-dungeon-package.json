@@ -1,0 +1,122 @@
+{
+  "url": "https://opengameart.org/content/rpg-dungeon-package",
+  "images": [
+    {
+      "filename": "RPG%20DUNGEON%20VOL%201.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 1,
+          "spacing_y": 1,
+          "ignore": [
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "filename": "RPG%20DUNGEON%20VOL%202.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 1,
+          "spacing_y": 1,
+          "ignore": [
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "filename": "RPG%20DUNGEON%20VOL%203.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 1,
+          "spacing_y": 1,
+          "ignore": [
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

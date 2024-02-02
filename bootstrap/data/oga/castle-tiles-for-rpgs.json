@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/castle-tiles-for-rpgs",
+  "images": [
+    {
+      "filename": "Castle2_5.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

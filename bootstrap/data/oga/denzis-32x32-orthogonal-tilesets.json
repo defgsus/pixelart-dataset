@@ -1,0 +1,70 @@
+{
+  "url": "https://opengameart.org/content/denzis-32x32-orthogonal-tilesets",
+  "images": [
+    {
+      "filename": "32x32_orthogonal_0/32x32 orthogonal/32x32_3quarters_view_Denzi060507.PNG",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "32x32_orthogonal_0/32x32 orthogonal/32x32_GUI_icons_Denzi050625-1.PNG",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "32x32_orthogonal_0/32x32 orthogonal/32x32_monochrome_walls_Denzi070708-2.PNG",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "32x32_orthogonal_0/32x32 orthogonal/32x32_monsters_Denzi120117-1.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 32,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "32x32_orthogonal_0/32x32 orthogonal/32x32_spell_icons_Denzi090528-1.PNG",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 32,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

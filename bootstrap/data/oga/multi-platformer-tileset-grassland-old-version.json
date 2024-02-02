@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/multi-platformer-tileset-grassland-old-version",
+  "images": [
+    {
+      "filename": "Multi_Platformer_Tileset_Free/Multi_Platformer_Tileset_Free/GrassLand/Terrain/Grassland_Terrain_Tileset.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

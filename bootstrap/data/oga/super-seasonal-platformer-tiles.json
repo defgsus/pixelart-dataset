@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/super-seasonal-platformer-tiles",
+  "images": [
+    {
+      "filename": "Season_collection.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 32,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

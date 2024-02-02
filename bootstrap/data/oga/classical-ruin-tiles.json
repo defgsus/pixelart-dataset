@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/classical-ruin-tiles",
+  "images": [
+    {
+      "filename": "classical_ruin_tiles_1.png",
+      "tilings": [
+        {
+          "offset_x": 200,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

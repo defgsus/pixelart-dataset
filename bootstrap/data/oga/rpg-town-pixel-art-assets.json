@@ -1,0 +1,102 @@
+{
+  "url": "https://opengameart.org/content/rpg-town-pixel-art-assets",
+  "images": [
+    {
+      "filename": "town_rpg_pack/town_rpg_pack/graphics/transparent-bg-tiles.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "ignore": [
+            [
+              15,
+              15
+            ],
+            [
+              15,
+              16
+            ],
+            [
+              15,
+              17
+            ],
+            [
+              15,
+              18
+            ],
+            [
+              15,
+              19
+            ],
+            [
+              16,
+              15
+            ],
+            [
+              16,
+              16
+            ],
+            [
+              16,
+              17
+            ],
+            [
+              16,
+              18
+            ],
+            [
+              16,
+              19
+            ],
+            [
+              17,
+              15
+            ],
+            [
+              17,
+              16
+            ],
+            [
+              17,
+              17
+            ],
+            [
+              17,
+              18
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "filename": "town_rpg_pack/town_rpg_pack/graphics/hero.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "town_rpg_pack/town_rpg_pack/graphics/npc.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

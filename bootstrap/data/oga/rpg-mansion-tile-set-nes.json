@@ -1,0 +1,36 @@
+{
+  "url": "https://opengameart.org/content/rpg-mansion-tile-set-nes",
+  "images": [
+    {
+      "filename": "NES%20Mansion%20Tile%20Set.png",
+      "tilings": [
+        {
+          "offset_x": 8,
+          "offset_y": 8,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "ignore": [
+            [
+              3,
+              15
+            ],
+            [
+              3,
+              16
+            ],
+            [
+              3,
+              17
+            ],
+            [
+              3,
+              18
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

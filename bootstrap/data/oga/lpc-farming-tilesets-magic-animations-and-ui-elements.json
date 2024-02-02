@@ -1,0 +1,44 @@
+{
+  "url": "https://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements",
+  "images": [
+    {
+      "filename": "submission_daneeklu/submission_daneeklu/tilesets/plowed_soil.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "submission_daneeklu/submission_daneeklu/tilesets/sandwater.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "submission_daneeklu/submission_daneeklu/tilesets/tallgrass.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "url": "https://opengameart.org/content/200-tileset-mega-metroidvania",
+  "images": [
+    {
+      "filename": "BFT%20-%20Mega%20Metroidvania%20Tileset_8.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "A2.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

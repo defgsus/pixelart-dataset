@@ -10,6 +10,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 from bootstrap.config import SOURCE_URLS, BOOTSTRAP_WEBCACHE_PATH, BOOTSTRAP_DATA_PATH
+from bootstrap.app.util import DEFAULT_TILING
 
 
 class SourceModel(QAbstractItemModel):
@@ -85,7 +86,7 @@ class SourceModel(QAbstractItemModel):
                             )
                         # temporarily convert images to dict for quicker lookup
                         source_image_map[url]["images_map"] = {
-                            img["filename"]: {
+                            str((Path(source_image_map[url]["web_folder"]) / img["filename"]).relative_to(BOOTSTRAP_WEBCACHE_PATH)): {
                                 **img,
                                 "filename": str(Path(source_image_map[url]["web_folder"]) / img["filename"])
                             }
@@ -102,6 +103,12 @@ class SourceModel(QAbstractItemModel):
         self._sources.clear()
         for key in sorted(source_image_map):
             source_image_map[key]["images"] = list(source_image_map[key].pop("images_map").values())
+
+            for image in source_image_map[key]["images"]:
+                for tiling in image["tilings"]:
+                    for k, v in DEFAULT_TILING.items():
+                        tiling.setdefault(k, v)
+
             self._sources.append(source_image_map[key])
 
     def update_source(self, source: dict):

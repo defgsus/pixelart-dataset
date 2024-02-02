@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/sokoban-100-tiles",
+  "images": [
+    {
+      "filename": "kenney_sokobanPack/Preview_KenneyNL.png",
+      "tilings": [
+        {
+          "offset_x": 23,
+          "offset_y": 9,
+          "patch_size_x": 36,
+          "patch_size_y": 36,
+          "spacing_x": 6,
+          "spacing_y": 6
+        }
+      ]
+    }
+  ]
+}

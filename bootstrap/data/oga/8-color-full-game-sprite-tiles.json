@@ -1,0 +1,20 @@
+{
+  "url": "https://opengameart.org/content/8-color-full-game-sprite-tiles",
+  "images": [
+    {
+      "filename": "Tile%20Map%208%20color%20Full%20game.png",
+      "tilings": [
+        {
+          "offset_x": 269,
+          "offset_y": 16,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "limit_x": 470,
+          "limit_y": 288
+        }
+      ]
+    }
+  ]
+}

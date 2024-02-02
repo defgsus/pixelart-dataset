@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/denzis-sidescroller-tilesets",
+  "images": [
+    {
+      "filename": "denzi_sidescroller_0/sidescroller/scifi_effects_animated_Denzi130311-1.png",
+      "tilings": [
+        {
+          "offset_x": 80,
+          "offset_y": 64,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

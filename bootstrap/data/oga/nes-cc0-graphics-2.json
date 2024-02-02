@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/nes-cc0-graphics-2",
+  "images": [
+    {
+      "filename": "NES_2.png",
+      "tilings": [
+        {
+          "offset_x": 3,
+          "offset_y": 3,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 2,
+          "spacing_y": 2
+        }
+      ]
+    }
+  ]
+}

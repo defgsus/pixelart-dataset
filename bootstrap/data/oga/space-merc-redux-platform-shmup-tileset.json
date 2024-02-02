@@ -1,0 +1,18 @@
+{
+  "url": "https://opengameart.org/content/space-merc-redux-platform-shmup-tileset",
+  "images": [
+    {
+      "filename": "tiles-onemassivesheet-16colour-alpha_0.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

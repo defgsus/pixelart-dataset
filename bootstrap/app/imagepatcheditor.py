@@ -41,10 +41,11 @@ class ImagePatchEditor(QWidget):
         l.addWidget(self.view)
         self.patch_widget = ImagePatchWidget(self)
         self.view.setWidget(self.patch_widget)
+        self.patch_widget.signal_image_changed.connect(self._update_image_from_patch_widget)
 
         self.controls.signal_zoom_changed.connect(self.patch_widget.set_zoom)
         self.controls.signal_tilings_changed.connect(self._slot_tilings_changed)
-
+        self.controls.signal_tiling_selected.connect(self.patch_widget.set_tiling_index)
 
     def set_image(self, source: dict, index: int):
         self._source = source
@@ -54,6 +55,10 @@ class ImagePatchEditor(QWidget):
         self.controls.set_tilings(self._image_data["tilings"], self._image_size)
         self.patch_widget.set_image(self._image_data)
         self.setEnabled(True)
+
+    def _update_image_from_patch_widget(self, image_data: dict):
+        self._image_data = deepcopy(image_data)
+        self.controls.set_tilings(self._image_data["tilings"], self._image_size)
 
     def _slot_tilings_changed(self, tilings: List[dict]):
         if self._image_data is not None:
@@ -70,10 +75,11 @@ class ImagePatchEditor(QWidget):
 
 class ImagePatchEditorControls(QWidget):
 
-    XY_PARAMS = ("offset", "patch_size", "spacing")
+    XY_PARAMS = ("offset", "patch_size", "spacing", "size")
 
     signal_zoom_changed = pyqtSignal(int)
     signal_tilings_changed = pyqtSignal(list)
+    signal_tiling_selected = pyqtSignal(int)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -107,6 +113,7 @@ class ImagePatchEditorControls(QWidget):
             lh.addWidget(spin_x)
             spin_y = QSpinBox(self)
             spin_y.setRange(0, 2**24)
+            spin_y.setDisabled(True)
             lh.addWidget(spin_y)
 
             self._widgets[f"{name}_x"] = spin_x
@@ -116,6 +123,8 @@ class ImagePatchEditorControls(QWidget):
             spin_y.valueChanged.connect(partial(self._slot_value_changed, f"{name}_y"))
 
     def set_tilings(self, tilings: List[dict], image_size: QSize):
+        old_index = self.tiling_tab.currentIndex()
+
         while self.tiling_tab.count():
             self.tiling_tab.removeTab(0)
 
@@ -124,22 +133,25 @@ class ImagePatchEditorControls(QWidget):
 
         self.tiling_tab.addTab("➕ new tiling")
 
-        self.tiling_tab.setCurrentIndex(0)
         self._tilings = deepcopy(tilings)
         self._image_size = image_size
 
-        if self._tilings:
-            self._tab_clicked(0)
-        else:
+        self.tiling_tab.setCurrentIndex(max(0, min(old_index, self.tiling_tab.count() - 2)))
+
+        if not self._tilings:
             for w in self._widgets.values():
                 w.setDisabled(True)
 
     def _tab_clicked(self, index: int):
-        default_tiling = get_default_tiling(self._image_size)
+        if self._tilings and index < len(self._tilings):
+            default_tiling = deepcopy(self._tilings[index])
+        else:
+            default_tiling = get_default_tiling(self._image_size)
 
         if index == self.tiling_tab.count() - 1:
             self.set_tilings(self._tilings + [default_tiling], self._image_size)
             self.signal_tilings_changed.emit(self._tilings)
+            self.signal_tiling_selected.emit(len(self._tilings) - 1)
             return
 
         if index >= len(self._tilings):
@@ -158,6 +170,8 @@ class ImagePatchEditorControls(QWidget):
 
         finally:
             self._do_listen_value_change = True
+
+        self.signal_tiling_selected.emit(index)
 
     def _slot_value_changed(self, name: str, value: int):
         if not self._do_listen_value_change:

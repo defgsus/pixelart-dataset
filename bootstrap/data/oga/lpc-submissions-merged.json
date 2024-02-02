@@ -1,0 +1,239 @@
+{
+  "url": "https://opengameart.org/content/lpc-submissions-merged",
+  "images": [
+    {
+      "filename": "Animations/32x32-bat-sprite.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "Animations/beetle5.PNG",
+      "tilings": [
+        {
+          "offset_x": 2,
+          "offset_y": 2,
+          "patch_size_x": 48,
+          "patch_size_y": 48,
+          "spacing_x": 1,
+          "spacing_y": 1
+        }
+      ]
+    },
+    {
+      "filename": "Animations/chicken_eat.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "Animations/chicken_walk.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "Animations/cow_eat.png",
+      "tilings": [
+        {
+          "offset_x": 16,
+          "offset_y": 16,
+          "patch_size_x": 96,
+          "patch_size_y": 96,
+          "spacing_x": 32,
+          "spacing_y": 32
+        }
+      ]
+    },
+    {
+      "filename": "Animations/cow_walk.png",
+      "tilings": [
+        {
+          "offset_x": 16,
+          "offset_y": 16,
+          "patch_size_x": 96,
+          "patch_size_y": 96,
+          "spacing_x": 32,
+          "spacing_y": 32
+        }
+      ]
+    },
+    {
+      "filename": "Animations/llama_eat.png",
+      "tilings": [
+        {
+          "offset_x": 16,
+          "offset_y": 16,
+          "patch_size_x": 96,
+          "patch_size_y": 96,
+          "spacing_x": 32,
+          "spacing_y": 32
+        }
+      ]
+    },
+    {
+      "filename": "Animations/llama_walk.png",
+      "tilings": [
+        {
+          "offset_x": 16,
+          "offset_y": 16,
+          "patch_size_x": 96,
+          "patch_size_y": 96,
+          "spacing_x": 32,
+          "spacing_y": 32
+        }
+      ]
+    },
+    {
+      "filename": "Animations/pig_eat.png",
+      "tilings": [
+        {
+          "offset_x": 32,
+          "offset_y": 32,
+          "patch_size_x": 64,
+          "patch_size_y": 64,
+          "spacing_x": 64,
+          "spacing_y": 64
+        }
+      ]
+    },
+    {
+      "filename": "Animations/pig_walk.png",
+      "tilings": [
+        {
+          "offset_x": 32,
+          "offset_y": 32,
+          "patch_size_x": 64,
+          "patch_size_y": 64,
+          "spacing_x": 64,
+          "spacing_y": 64
+        }
+      ]
+    },
+    {
+      "filename": "Animations/sheep_eat.png",
+      "tilings": [
+        {
+          "offset_x": 32,
+          "offset_y": 32,
+          "patch_size_x": 64,
+          "patch_size_y": 64,
+          "spacing_x": 64,
+          "spacing_y": 64
+        }
+      ]
+    },
+    {
+      "filename": "Animations/sheep_walk.png",
+      "tilings": [
+        {
+          "offset_x": 32,
+          "offset_y": 32,
+          "patch_size_x": 64,
+          "patch_size_y": 64,
+          "spacing_x": 64,
+          "spacing_y": 64
+        }
+      ]
+    },
+    {
+      "filename": "Animations/WaterAndFire.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "LPC%20Submissions%20Merged%202.0/Exterior Tiles.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "LPC%20Submissions%20Merged%202.0/Interior.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "LPC%20Submissions%20Merged%202.0/Interior 2.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "LPC%20Submissions%20Merged%202.0/Outside Objects.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "LPC%20Submissions%20Merged%202.0/Terrain and Outside.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 32,
+          "patch_size_y": 32,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

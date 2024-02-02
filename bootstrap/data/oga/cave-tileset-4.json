@@ -1,0 +1,48 @@
+{
+  "url": "https://opengameart.org/content/cave-tileset-4",
+  "images": [
+    {
+      "filename": "cave_assets_1.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 32,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "limit_x": 550,
+          "limit_y": 1000,
+          "ignore": [
+            [
+              22,
+              1
+            ],
+            [
+              22,
+              2
+            ],
+            [
+              22,
+              3
+            ],
+            [
+              22,
+              4
+            ]
+          ]
+        },
+        {
+          "offset_x": 544,
+          "offset_y": 32,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "limit_x": 1000,
+          "limit_y": 200
+        }
+      ]
+    }
+  ]
+}

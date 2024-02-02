@@ -1,0 +1,70 @@
+{
+  "url": "https://opengameart.org/content/platformer-art-complete-pack-often-updated",
+  "images": [
+    {
+      "filename": "Platformer%20Art%20Complete%20Pack_0/Base pack/Tiles/tiles_spritesheet.png",
+      "tilings": [
+        {
+          "offset_x": 1,
+          "offset_y": 1,
+          "patch_size_x": 70,
+          "patch_size_y": 70,
+          "spacing_x": 2,
+          "spacing_y": 2
+        }
+      ]
+    },
+    {
+      "filename": "Platformer%20Art%20Complete%20Pack_0/Buildings expansion/sheet.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 70,
+          "patch_size_y": 70,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "Platformer%20Art%20Complete%20Pack_0/Candy expansion/sheet.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 70,
+          "patch_size_y": 70,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "Platformer%20Art%20Complete%20Pack_0/Ice expansion/sheet.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 70,
+          "patch_size_y": 70,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    },
+    {
+      "filename": "Platformer%20Art%20Complete%20Pack_0/Request pack/sheet.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 70,
+          "patch_size_y": 70,
+          "spacing_x": 0,
+          "spacing_y": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "url": "https://opengameart.org/content/colored-16x16-fantasy-tileset",
+  "images": [
+    {
+      "filename": "color_tileset_16x16_Jerom%26Eiyeron_CC-BY-SA-3.0_8.png",
+      "tilings": [
+        {
+          "offset_x": 0,
+          "offset_y": 0,
+          "patch_size_x": 16,
+          "patch_size_y": 16,
+          "spacing_x": 0,
+          "spacing_y": 0,
+          "limit_x": 1000,
+          "limit_y": 432,
+          "ignore": [
+            [
+              26,
+              7
+            ],
+            [
+              26,
+              8
+            ],
+            [
+              26,
+              9
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
