@@ -63,6 +63,11 @@ class SourceModel(QAbstractItemModel):
 
     def _scan_sources(self):
         source_image_map = {}
+        duplicates_map = {}
+
+        duplicates_name = BOOTSTRAP_DATA_PATH / "duplicates.json"
+        if duplicates_name.exists():
+            duplicates_map = json.loads(duplicates_name.read_text())
 
         for url in sorted(self.urls):
 
@@ -101,15 +106,20 @@ class SourceModel(QAbstractItemModel):
                         }
 
         self._sources.clear()
-        for key in sorted(source_image_map):
-            source_image_map[key]["images"] = list(source_image_map[key].pop("images_map").values())
-
-            for image in source_image_map[key]["images"]:
-                for tiling in image["tilings"]:
+        for url in sorted(source_image_map):
+            source_image_map[url]["images"] = list(source_image_map[url].pop("images_map").values())
+            for image in source_image_map[url]["images"]:
+                for tiling_index, tiling in enumerate(image["tilings"]):
                     for k, v in DEFAULT_TILING.items():
                         tiling.setdefault(k, v)
+                    
+                    if url in duplicates_map:
+                        filename = str(Path(image["filename"]).relative_to(BOOTSTRAP_WEBCACHE_PATH))
+                        if filename in duplicates_map[url]:
+                            if str(tiling_index) in duplicates_map[url][filename]:
+                                tiling["duplicates"] = duplicates_map[url][filename][str(tiling_index)]
 
-            self._sources.append(source_image_map[key])
+            self._sources.append(source_image_map[url])
 
     def update_source(self, source: dict):
         for i, src in enumerate(self._sources):

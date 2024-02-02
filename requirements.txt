@@ -3,3 +3,4 @@ decouple
 PyQt5
 qdarkstyle
 requests
+tqdm

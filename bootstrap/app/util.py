@@ -57,7 +57,7 @@ class Tiling:
     def rects(self, ignored: bool = False) -> List[QRect]:
         return list(self.iter_rects(ignored=ignored))
 
-    def iter_rects(self, ignored: bool = False) -> Generator[QRect, None, None]:
+    def iter_rects(self, ignored: bool = False, yield_pos: bool = False) -> Generator[QRect, None, None]:
         for y in range(self.offset_y, self.image_size.height(), self.stride_y):
             if y + self.patch_size_y <= self.image_size.height():
                 for x in range(self.offset_x, self.image_size.width(), self.stride_x):
@@ -69,12 +69,16 @@ class Tiling:
                             if not self.size_y or tile_pos[0] < self.size_y:
                                 if not self.size_x or tile_pos[1] < self.size_x:
 
-                                    yield QRect(
+                                    rect = QRect(
                                         self.zoom * x,
                                         self.zoom * y,
                                         self.zoom * self.patch_size_x,
                                         self.zoom * self.patch_size_y,
                                     )
+                                    if yield_pos:
+                                        yield rect, tile_pos
+                                    else:
+                                        yield rect
 
     def to_tile_pos(self, y: int, x: int) -> Tuple[int, int]:
         return (

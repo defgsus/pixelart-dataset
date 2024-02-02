@@ -82,6 +82,8 @@ class MainWindow(QMainWindow):
             if image["tilings"]:
                 image = deepcopy(image)
                 image["filename"] = str(Path(image["filename"]).relative_to(source["web_folder"]))
+                for tiling in image["tilings"]:
+                    tiling.pop("duplicates", None)
                 source2["images"].append(image)
 
         for key in ("name", "web_folder", "data_filename"):
