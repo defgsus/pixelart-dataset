@@ -57,6 +57,13 @@ class Tiling:
             self.duplicate_tiles = set(tuple(t) for t in tiling["duplicates"])
         else:
             self.duplicate_tiles = set()
+        if tiling.get("labels"):
+            self.labels = {
+                label: set(tuple(p) for p in positions)
+                for label, positions in tiling["labels"].items()
+            }
+        else:
+            self.labels = {}
 
     def rects(
             self,

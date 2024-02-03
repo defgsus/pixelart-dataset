@@ -1,11 +1,12 @@
 import json
 import math
+import os
 import sys
 import argparse
 import hashlib
 from io import BytesIO
 from pathlib import Path
-from typing import Generator, Tuple
+from typing import Generator, Tuple, Optional, List
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -27,6 +28,10 @@ def parse_args():
     parser.add_argument(
         "-d", "--duplicates", type=bool, nargs="?", default=False, const=True,
         help="Write the bootstrap/data/duplicates.json files",
+    )
+    parser.add_argument(
+        "-o", "--output", type=str, nargs="?", default=None,
+        help="Directory to store the dataset",
     )
 
     return vars(parser.parse_args())
@@ -51,9 +56,36 @@ def iter_patches(
                     yield source, image_index, tiling_index, tile_pos, patch
 
 
+def write_dataset(directory: str, patches: List[QImage]):
+    directory = Path(directory)
+
+    size = patches[0].width()
+    width = int(math.floor(math.sqrt(len(patches))))
+
+    pixmap = QPixmap(QSize(width * size, width * size))
+    print(f"creating {pixmap.width()}x{pixmap.height()} image")
+
+    painter = QPainter(pixmap)
+    painter.setBrush(QBrush(QColor(0, 0, 0)))
+    painter.drawRect(pixmap.rect())
+
+    x, y = 0, 0
+    for patch in patches:
+        painter.drawImage(QPoint(x * size, y * size), patch)
+        x += 1
+        if x >= width:
+            x = 0
+            y += 1
+    painter.end()
+
+    os.makedirs(directory, exist_ok=True)
+    pixmap.save(str(directory / "tiles.png"))
+
+
 def main(
         size: int,
         duplicates: bool,
+        output: Optional[str],
 ):
     app = QGuiApplication(sys.argv)
 
@@ -90,23 +122,8 @@ def main(
         (config.BOOTSTRAP_DATA_PATH / "duplicates.json").write_text(json.dumps(duplicates_map))
     print(f"patches: {len(patches)}")
 
-    width = int(math.floor(math.sqrt(len(patches))))
-    pixmap = QPixmap(QSize(width * size, width * size))
-    print(f"creating {pixmap.size()} png")
-
-    painter = QPainter(pixmap)
-    painter.setBrush(QBrush(QColor(0, 0, 0)))
-    painter.drawRect(pixmap.rect())
-
-    x, y = 0, 0
-    for patch in patches:
-        painter.drawImage(QPoint(x * size, y * size), patch)
-        x += 1
-        if x >= width:
-            x = 0
-            y += 1
-    painter.end()
-    pixmap.save("pixmap.png")
+    if output:
+        write_dataset(output, patches)
 
 
 if __name__ == "__main__":

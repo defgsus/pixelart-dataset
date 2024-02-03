@@ -8,6 +8,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 from .util import Tiling
+from .labelmodel import LabelModel
 
 
 class ImagePatchWidget(QWidget):
@@ -23,6 +24,11 @@ class ImagePatchWidget(QWidget):
         self._tiling: Optional[Tiling] = None
         self._is_drawing = False
         self._draw_state = None
+        self._mode = "tiles"
+        self._current_label: Optional[dict] = None
+        model = LabelModel(self)
+        if model.rowCount():
+            self._current_label = model.data(model.index(0, 0), role=Qt.ItemDataRole.UserRole)
 
     def set_image(self, image_data: Optional[dict] = None):
         if image_data is None:
@@ -60,6 +66,11 @@ class ImagePatchWidget(QWidget):
 
         self.update()
 
+    def set_mode(self, mode: str):
+        assert mode in ("tiles", "labels"), f"Got: {mode}"
+        self._mode = mode
+        self.update()
+
     def set_tiling_index(self, index: int):
         self._tiling_index = index
         self._tiling = None
@@ -82,33 +93,74 @@ class ImagePatchWidget(QWidget):
         painter.drawPixmap(self.rect(), self._image)
 
         if self._tiling:
-            painter.setPen(QPen(QColor(255, 255, 255, 196)))
-            painter.setBrush(QBrush(QColor(255, 255, 255, 50)))
-            painter.drawRects(self._tiling.rects(size_minus=1))
+            if self._mode == "tiles":
+                painter.setPen(QPen(QColor(255, 255, 255, 196)))
+                painter.setBrush(QBrush(QColor(255, 255, 255, 50)))
+                painter.drawRects(self._tiling.rects(size_minus=1))
 
-            painter.setPen(Qt.NoPen)
-            painter.setBrush(QBrush(QColor(255, 128, 128, 196)))
-            painter.drawRects(self._tiling.rects(ignored=True))
+                painter.setPen(Qt.NoPen)
+                painter.setBrush(QBrush(QColor(255, 128, 128, 196)))
+                painter.drawRects(self._tiling.rects(ignored=True))
 
-            painter.setPen(Qt.NoPen)
-            painter.setBrush(QBrush(QColor(64, 0, 0, 196)))
-            painter.drawRects(self._tiling.rects(duplicates=True))
+                painter.setPen(Qt.NoPen)
+                painter.setBrush(QBrush(QColor(64, 0, 0, 196)))
+                painter.drawRects(self._tiling.rects(duplicates=True))
+
+            elif self._mode == "labels":
+                painter.setPen(Qt.NoPen)
+                painter.setBrush(QBrush(QColor(0, 0, 0, 128)))
+                #painter.drawRects(self._tiling.rects(all_the_rest=True))
+
+                if self._current_label:
+
+                    for label, pos_set in self._tiling.labels.items():
+
+                        if self._current_label and self._current_label["name"] == label:
+                            color = self._current_label["color"]
+                            painter.setPen(QPen(QColor(*color).lighter()))
+                            painter.setBrush(QBrush(QColor(*color, 128)))
+                        else:
+                            painter.setPen(Qt.NoPen)
+                            painter.setBrush(QBrush(QColor(0, 0, 0, 196)))
+
+                        rects = []
+                        for rect, pos in self._tiling.iter_rects(size_minus=1, yield_pos=True):
+                            if pos in pos_set:
+                                rects.append(rect)
+                        if rects:
+                            painter.drawRects(rects)
 
     def mousePressEvent(self, event: QMouseEvent):
         if self._tiling:
             pos = self._tiling.to_tile_pos(event.y(), event.x())
-            self._draw_state = self.swap_ignore_tile(*pos)
-            if self._draw_state is not None:
-                self._is_drawing = True
-                self.update()
-                self.signal_image_changed.emit(self._image_data)
+            if self._mode == "tiles":
+                self._draw_state = self.swap_ignore_tile(*pos)
+                if self._draw_state is not None:
+                    self._is_drawing = True
+                    self.update()
+                    self.signal_image_changed.emit(self._image_data)
+
+            elif self._mode == "labels":
+                if self._current_label:
+                    self._draw_state = pos not in self._tiling.labels.get(self._current_label["name"], tuple())
+                    self.set_label_tile(*pos, label=self._current_label["name"], remove=not self._draw_state)
+                    self._is_drawing = True
+                    self.update()
+                    self.signal_image_changed.emit(self._image_data)
 
     def mouseMoveEvent(self, event: QMouseEvent):
         if self._tiling and self._is_drawing:
             pos = self._tiling.to_tile_pos(event.y(), event.x())
-            if self.set_ignor_tile(*pos, state=self._draw_state):
-                self.update()
-                self.signal_image_changed.emit(self._image_data)
+
+            if self._mode == "tiles":
+                if self.set_ignor_tile(*pos, state=self._draw_state):
+                    self.update()
+                    self.signal_image_changed.emit(self._image_data)
+
+            elif self._mode == "labels" and self._current_label:
+                if self.set_label_tile(*pos, label=self._current_label["name"], remove=not self._draw_state):
+                    self.update()
+                    self.signal_image_changed.emit(self._image_data)
 
     def mouseReleaseEvent(self, event: QMouseEvent):
         self._is_drawing = False
@@ -140,3 +192,34 @@ class ImagePatchWidget(QWidget):
             self._image_data["tilings"][self._tiling_index].pop("ignore", None)
 
         return ret
+
+    def set_label(self, label: dict):
+        self._current_label = label
+        self.update()
+
+    def set_label_tile(self, *pos: int, label: Optional[str], remove: bool = False) -> bool:
+        is_changed = False
+
+        pos_set = self._tiling.labels.get(label, tuple())
+        if remove:
+            if pos in pos_set:
+                pos_set.remove(pos)
+                is_changed = True
+            if not pos_set:
+                self._tiling.labels.pop(label)
+        else:
+            if label not in self._tiling.labels:
+                self._tiling.labels[label] = set()
+            if pos not in self._tiling.labels[label]:
+                self._tiling.labels[label].add(pos)
+                is_changed = True
+
+        if self._tiling.labels:
+            self._image_data["tilings"][self._tiling_index]["labels"] = {
+                l: list(p)
+                for l, p in self._tiling.labels.items()
+            }
+        else:
+            self._image_data["tilings"][self._tiling_index].pop("labels", None)
+
+        return is_changed

@@ -1,3 +1,7 @@
+bootstrap/webcache/
+datasets/
+notebooks/
+
 .env
 .idea/
 env/

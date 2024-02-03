@@ -8,7 +8,9 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 from .imagepatchwidget import ImagePatchWidget
+from .labelmodel import LabelModel
 from .util import get_default_tiling
+from .newlabelbox import NewLabelBox
 
 
 class ImagePatchEditor(QWidget):
@@ -44,8 +46,10 @@ class ImagePatchEditor(QWidget):
         self.patch_widget.signal_image_changed.connect(self._update_image_from_patch_widget)
 
         self.controls.signal_zoom_changed.connect(self.patch_widget.set_zoom)
+        self.controls.signal_mode_changed.connect(self.patch_widget.set_mode)
         self.controls.signal_tilings_changed.connect(self._slot_tilings_changed)
         self.controls.signal_tiling_selected.connect(self.patch_widget.set_tiling_index)
+        self.controls.signal_label_changed.connect(self.patch_widget.set_label)
 
     def set_image(self, source: dict, index: int):
         self._source = source
@@ -78,6 +82,8 @@ class ImagePatchEditorControls(QWidget):
     XY_PARAMS = ("offset", "patch_size", "spacing", "size")
 
     signal_zoom_changed = pyqtSignal(int)
+    signal_mode_changed = pyqtSignal(str)
+    signal_label_changed = pyqtSignal(dict)
     signal_tilings_changed = pyqtSignal(list)
     signal_tiling_selected = pyqtSignal(int)
 
@@ -126,6 +132,23 @@ class ImagePatchEditorControls(QWidget):
 
             spin_x.valueChanged.connect(partial(self._slot_value_changed, f"{name}_x"))
             spin_y.valueChanged.connect(partial(self._slot_value_changed, f"{name}_y"))
+
+        lh = QHBoxLayout()
+        l.addLayout(lh)
+        rb = QRadioButton("tiles", self)
+        rb.setChecked(True)
+        lh.addWidget(rb)
+        rb.clicked.connect(partial(self.signal_mode_changed.emit, "tiles"))
+        rb = QRadioButton("labels", self)
+        lh.addWidget(rb)
+        rb.clicked.connect(partial(self.signal_mode_changed.emit, "labels"))
+        self.label_box = QComboBox(self)
+        lh.addWidget(self.label_box)
+        self.label_box.setModel(LabelModel(self))
+        self.label_box.currentIndexChanged.connect(lambda i: self.signal_label_changed.emit(self.label_box.itemData(i)))
+        butt = QPushButton("new label", self)
+        lh.addWidget(butt)
+        butt.clicked.connect(self._new_label_dialog)
 
     def set_tilings(self, tilings: List[dict], image_size: QSize):
         old_index = self.tiling_tab.currentIndex()
@@ -221,3 +244,14 @@ class ImagePatchEditorControls(QWidget):
         self._tilings[index][name] = value
 
         self.signal_tilings_changed.emit(self._tilings)
+
+    def _new_label_dialog(self):
+        diag = NewLabelBox(self)
+        diag.signal_add_label.connect(self._add_label)
+        diag.show()
+
+    def _add_label(self, label: dict):
+        index = self.label_box.model().add_label(label)
+        self.label_box.setCurrentIndex(index)
+        self.label_box.update()
+        self.signal_label_changed.emit(label)

@@ -89,4 +89,4 @@ class MainWindow(QMainWindow):
         for key in ("name", "web_folder", "data_filename"):
             source2.pop(key, None)
 
-        filename.write_text(json.dumps(source2, indent=2))
+        filename.write_text(json.dumps(source2))
