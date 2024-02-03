@@ -10,7 +10,35 @@
           "patch_size_x": 16,
           "patch_size_y": 16,
           "spacing_x": 0,
-          "spacing_y": 0
+          "spacing_y": 0,
+          "size_x": 0,
+          "size_y": 0,
+          "ignore": [
+            [
+              31,
+              11
+            ],
+            [
+              32,
+              11
+            ],
+            [
+              30,
+              10
+            ],
+            [
+              31,
+              10
+            ],
+            [
+              32,
+              10
+            ],
+            [
+              30,
+              11
+            ]
+          ]
         }
       ]
     },
@@ -23,7 +51,9 @@
           "patch_size_x": 16,
           "patch_size_y": 16,
           "spacing_x": 0,
-          "spacing_y": 0
+          "spacing_y": 0,
+          "size_x": 0,
+          "size_y": 0
         }
       ]
     }

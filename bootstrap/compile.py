@@ -1,4 +1,5 @@
 import json
+import math
 import sys
 import argparse
 import hashlib
@@ -23,6 +24,10 @@ def parse_args():
         "-s", "--size", type=int, nargs="?", default=16,
         help="Size of patches (width and height)",
     )
+    parser.add_argument(
+        "-d", "--duplicates", type=bool, nargs="?", default=False, const=True,
+        help="Write the bootstrap/data/duplicates.json files",
+    )
 
     return vars(parser.parse_args())
 
@@ -45,8 +50,10 @@ def iter_patches(
                     patch = image.copy(rect).scaled(patch_size)
                     yield source, image_index, tiling_index, tile_pos, patch
 
+
 def main(
         size: int,
+        duplicates: bool,
 ):
     app = QGuiApplication(sys.argv)
 
@@ -54,6 +61,7 @@ def main(
     hash_set = set()
 
     duplicates_map = {}
+    patches = []
 
     for source, image_index, tiling_index, tile_pos, patch in tqdm(iter_patches(size=size)):
         data = patch.bits().asarray(size=patch.byteCount())
@@ -73,9 +81,32 @@ def main(
             continue
 
         hash_set.add(hash)
+        patches.append(patch)
+        #if len(patches) >= 1000:
+        #    break
 
     print(f"duplicates: {num_duplicates}")
-    (config.BOOTSTRAP_DATA_PATH / "duplicates.json").write_text(json.dumps(duplicates_map))
+    if duplicates:
+        (config.BOOTSTRAP_DATA_PATH / "duplicates.json").write_text(json.dumps(duplicates_map))
+    print(f"patches: {len(patches)}")
+
+    width = int(math.floor(math.sqrt(len(patches))))
+    pixmap = QPixmap(QSize(width * size, width * size))
+    print(f"creating {pixmap.size()} png")
+
+    painter = QPainter(pixmap)
+    painter.setBrush(QBrush(QColor(0, 0, 0)))
+    painter.drawRect(pixmap.rect())
+
+    x, y = 0, 0
+    for patch in patches:
+        painter.drawImage(QPoint(x * size, y * size), patch)
+        x += 1
+        if x >= width:
+            x = 0
+            y += 1
+    painter.end()
+    pixmap.save("pixmap.png")
 
 
 if __name__ == "__main__":

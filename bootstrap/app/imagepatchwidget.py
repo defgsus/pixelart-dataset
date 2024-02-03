@@ -82,21 +82,26 @@ class ImagePatchWidget(QWidget):
         painter.drawPixmap(self.rect(), self._image)
 
         if self._tiling:
-            painter.setPen(QPen(QColor(255, 255, 255)))
-            painter.setBrush(QBrush(QColor(255, 255, 255, 100)))
-            painter.drawRects(self._tiling.rects())
+            painter.setPen(QPen(QColor(255, 255, 255, 196)))
+            painter.setBrush(QBrush(QColor(255, 255, 255, 50)))
+            painter.drawRects(self._tiling.rects(size_minus=1))
 
             painter.setPen(Qt.NoPen)
             painter.setBrush(QBrush(QColor(255, 128, 128, 196)))
             painter.drawRects(self._tiling.rects(ignored=True))
 
+            painter.setPen(Qt.NoPen)
+            painter.setBrush(QBrush(QColor(64, 0, 0, 196)))
+            painter.drawRects(self._tiling.rects(duplicates=True))
+
     def mousePressEvent(self, event: QMouseEvent):
         if self._tiling:
             pos = self._tiling.to_tile_pos(event.y(), event.x())
             self._draw_state = self.swap_ignore_tile(*pos)
-            self._is_drawing = True
-            self.update()
-            self.signal_image_changed.emit(self._image_data)
+            if self._draw_state is not None:
+                self._is_drawing = True
+                self.update()
+                self.signal_image_changed.emit(self._image_data)
 
     def mouseMoveEvent(self, event: QMouseEvent):
         if self._tiling and self._is_drawing:
@@ -108,12 +113,16 @@ class ImagePatchWidget(QWidget):
     def mouseReleaseEvent(self, event: QMouseEvent):
         self._is_drawing = False
 
-    def swap_ignore_tile(self, *pos: int) -> bool:
+    def swap_ignore_tile(self, *pos: int) -> Optional[bool]:
         next_state = pos not in self._tiling.ignore_tiles
-        self.set_ignor_tile(*pos, state=next_state)
+        if next_state is not None:
+            self.set_ignor_tile(*pos, state=next_state)
         return next_state
 
-    def set_ignor_tile(self, *pos: int, state: bool) -> bool:
+    def set_ignor_tile(self, *pos: int, state: bool) -> Optional[bool]:
+        if pos in self._tiling.duplicate_tiles:
+            return None
+
         ret = False
 
         if not state:

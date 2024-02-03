@@ -53,32 +53,49 @@ class Tiling:
             self.ignore_tiles = set(tuple(t) for t in tiling["ignore"])
         else:
             self.ignore_tiles = set()
+        if tiling.get("duplicates"):
+            self.duplicate_tiles = set(tuple(t) for t in tiling["duplicates"])
+        else:
+            self.duplicate_tiles = set()
 
-    def rects(self, ignored: bool = False) -> List[QRect]:
-        return list(self.iter_rects(ignored=ignored))
+    def rects(
+            self,
+            ignored: bool = False,
+            duplicates: bool = False,
+            yield_pos: bool = False,
+            size_minus: int = 0,
+    ) -> List[QRect]:
+        return list(self.iter_rects(ignored=ignored, duplicates=duplicates, yield_pos=yield_pos, size_minus=size_minus))
 
-    def iter_rects(self, ignored: bool = False, yield_pos: bool = False) -> Generator[QRect, None, None]:
+    def iter_rects(
+            self,
+            ignored: bool = False,
+            duplicates: bool = False,
+            yield_pos: bool = False,
+            size_minus: int = 0,
+    ) -> Generator[QRect, None, None]:
         for y in range(self.offset_y, self.image_size.height(), self.stride_y):
             if y + self.patch_size_y <= self.image_size.height():
                 for x in range(self.offset_x, self.image_size.width(), self.stride_x):
                     if x + self.patch_size_x <= self.image_size.width():
 
                         tile_pos = self.to_tile_pos(self.zoom * y, self.zoom * x)
-                        if ignored == (tile_pos in self.ignore_tiles):
+                        if ignored == (tile_pos in self.ignore_tiles) or duplicates:
+                            if duplicates == (tile_pos in self.duplicate_tiles):
 
-                            if not self.size_y or tile_pos[0] < self.size_y:
-                                if not self.size_x or tile_pos[1] < self.size_x:
+                                if not self.size_y or tile_pos[0] < self.size_y:
+                                    if not self.size_x or tile_pos[1] < self.size_x:
 
-                                    rect = QRect(
-                                        self.zoom * x,
-                                        self.zoom * y,
-                                        self.zoom * self.patch_size_x,
-                                        self.zoom * self.patch_size_y,
-                                    )
-                                    if yield_pos:
-                                        yield rect, tile_pos
-                                    else:
-                                        yield rect
+                                        rect = QRect(
+                                            self.zoom * x,
+                                            self.zoom * y,
+                                            self.zoom * self.patch_size_x - size_minus,
+                                            self.zoom * self.patch_size_y - size_minus,
+                                        )
+                                        if yield_pos:
+                                            yield rect, tile_pos
+                                        else:
+                                            yield rect
 
     def to_tile_pos(self, y: int, x: int) -> Tuple[int, int]:
         return (
