@@ -1,5 +1,125 @@
 [
   {
+    "name": "armour",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "arrow",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "axe",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "background",
+    "color": [
+      80,
+      80,
+      80
+    ]
+  },
+  {
+    "name": "block",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "bomb",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "book",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "boots",
+    "color": [
+      128,
+      96,
+      40
+    ]
+  },
+  {
+    "name": "bow",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "carpet",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "chair",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "chest",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "cloud",
+    "color": [
+      255,
+      255,
+      255
+    ]
+  },
+  {
+    "name": "coin",
+    "color": [
+      190,
+      190,
+      90
+    ]
+  },
+  {
+    "name": "column",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
     "name": "creature",
     "color": [
       190,
@@ -8,7 +128,391 @@
     ]
   },
   {
+    "name": "dirt",
+    "color": [
+      128,
+      100,
+      50
+    ]
+  },
+  {
+    "name": "door",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "doorway",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "fence",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "fire",
+    "color": [
+      190,
+      160,
+      50
+    ]
+  },
+  {
+    "name": "floor",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "fountain",
+    "color": [
+      128,
+      128,
+      190
+    ]
+  },
+  {
+    "name": "gloves",
+    "color": [
+      128,
+      128,
+      70
+    ]
+  },
+  {
+    "name": "grass",
+    "color": [
+      40,
+      128,
+      40
+    ]
+  },
+  {
+    "name": "ground",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "helmet",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "house",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "ice",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "jewelry",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "key",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
     "name": "ladder",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "lava",
+    "color": [
+      190,
+      90,
+      30
+    ]
+  },
+  {
+    "name": "leakage",
+    "color": [
+      60,
+      169,
+      128
+    ]
+  },
+  {
+    "name": "lever",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "machine",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "mushroom",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "ornament",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "paper",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "pipe",
+    "color": [
+      128,
+      196,
+      128
+    ]
+  },
+  {
+    "name": "plant",
+    "color": [
+      64,
+      128,
+      64
+    ]
+  },
+  {
+    "name": "platform",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "potion",
+    "color": [
+      128,
+      160,
+      200
+    ]
+  },
+  {
+    "name": "robot",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "rock",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "roof",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "sand",
+    "color": [
+      196,
+      196,
+      64
+    ]
+  },
+  {
+    "name": "sceptre",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "scroll",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "shelf",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "shield",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "sign",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "skull",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "sky",
+    "color": [
+      128,
+      255,
+      255
+    ]
+  },
+  {
+    "name": "snow",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "spaceship",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "spikes",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "stairs",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "stars",
+    "color": [
+      255,
+      255,
+      128
+    ]
+  },
+  {
+    "name": "steel",
+    "color": [
+      64,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "stone",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "sword",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "symbol",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "table",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "tank",
     "color": [
       128,
       128,
@@ -24,10 +528,26 @@
     ]
   },
   {
+    "name": "tombstone",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
     "name": "tree",
     "color": [
       128,
       190,
+      128
+    ]
+  },
+  {
+    "name": "tunnel",
+    "color": [
+      128,
+      128,
       128
     ]
   },
@@ -37,6 +557,30 @@
       128,
       128,
       128
+    ]
+  },
+  {
+    "name": "water",
+    "color": [
+      64,
+      128,
+      196
+    ]
+  },
+  {
+    "name": "window",
+    "color": [
+      128,
+      128,
+      128
+    ]
+  },
+  {
+    "name": "wood",
+    "color": [
+      128,
+      90,
+      20
     ]
   }
 ]

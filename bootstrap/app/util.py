@@ -109,3 +109,16 @@ class Tiling:
             (y // self.zoom - self.offset_y) // self.stride_y,
             (x // self.zoom - self.offset_x) // self.stride_x,
         )
+
+    def is_ignored(self, *pos: int) -> bool:
+        return pos in self.ignore_tiles
+
+    def is_duplicate(self, *pos: int) -> bool:
+        return pos in self.duplicate_tiles
+
+    def get_labels_at(self, *pos: int) -> List[str]:
+        labels = []
+        for key, pos_set in self.labels.items():
+            if pos in pos_set:
+                labels.append(key)
+        return labels

@@ -9,11 +9,14 @@ from PyQt5.QtWidgets import *
 
 from .util import Tiling
 from .labelmodel import LabelModel
+from .selectlabelbox import SelectLabelBox
 
 
 class ImagePatchWidget(QWidget):
 
+    signal_info_changed = pyqtSignal(str)
     signal_image_changed = pyqtSignal(dict)
+    signal_set_label = pyqtSignal(dict)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,9 +29,17 @@ class ImagePatchWidget(QWidget):
         self._draw_state = None
         self._mode = "tiles"
         self._current_label: Optional[dict] = None
+        self._last_hover_label_pos = None
+        self._label_select_box: Optional[SelectLabelBox] = None
+        self.label_model = None
+
+        # quickly load throw-away label model
+        #   later self.label_model is assigned to the one that is updated by the new-label action
         model = LabelModel(self)
         if model.rowCount():
             self._current_label = model.data(model.index(0, 0), role=Qt.ItemDataRole.UserRole)
+
+        self.setMouseTracking(True)
 
     def set_image(self, image_data: Optional[dict] = None):
         if image_data is None:
@@ -51,6 +62,7 @@ class ImagePatchWidget(QWidget):
             if self._image_data["tilings"]:
                 self._tiling = Tiling(self._image.size(), self._image_data["tilings"][self._tiling_index], zoom=self._zoom)
 
+        self._label_select_box = None
         self.update()
 
     def set_zoom(self, zoom: int):
@@ -69,15 +81,18 @@ class ImagePatchWidget(QWidget):
     def set_mode(self, mode: str):
         assert mode in ("tiles", "labels"), f"Got: {mode}"
         self._mode = mode
+        self._label_select_box = None
         self.update()
 
     def set_tiling_index(self, index: int):
+        self._label_select_box = None
         self._tiling_index = index
         self._tiling = None
         if self._image_data:
             self._tiling_index = min(self._tiling_index, len(self._image_data["tilings"]))
             if self._image_data["tilings"]:
                 self._tiling = Tiling(self._image.size(), self._image_data["tilings"][self._tiling_index], zoom=self._zoom)
+                self.update_info_label(0, 0)
         self.update()
 
     def paintEvent(self, event: QPaintEvent):
@@ -148,9 +163,12 @@ class ImagePatchWidget(QWidget):
                     self.update()
                     self.signal_image_changed.emit(self._image_data)
 
+            self.update_info_label(*pos)
+
     def mouseMoveEvent(self, event: QMouseEvent):
+        pos = self._tiling.to_tile_pos(event.y(), event.x())
+
         if self._tiling and self._is_drawing:
-            pos = self._tiling.to_tile_pos(event.y(), event.x())
 
             if self._mode == "tiles":
                 if self.set_ignor_tile(*pos, state=self._draw_state):
@@ -162,8 +180,31 @@ class ImagePatchWidget(QWidget):
                     self.update()
                     self.signal_image_changed.emit(self._image_data)
 
+        if pos != self._last_hover_label_pos:
+            self._last_hover_label_pos = pos
+            self.update_info_label(*pos)
+
     def mouseReleaseEvent(self, event: QMouseEvent):
         self._is_drawing = False
+
+    def update_info_label(self, *pos: int):
+        text = [
+            f"tiling #{self._tiling_index + 1}, pos x={pos[1]} y={pos[0]}"
+        ]
+
+        if self._tiling:
+            if self._tiling.is_duplicate(*pos):
+                text.append("duplicate")
+
+            if self._tiling.is_ignored(*pos):
+                text.append("ignored")
+
+            labels = self._tiling.get_labels_at(*pos)
+            if labels:
+                labels = ', '.join(f'"{l}"' for l in labels)
+                text.append(f"labels: {labels}")
+
+        self.signal_info_changed.emit(", ".join(text))
 
     def swap_ignore_tile(self, *pos: int) -> Optional[bool]:
         next_state = pos not in self._tiling.ignore_tiles
@@ -205,7 +246,8 @@ class ImagePatchWidget(QWidget):
             if pos in pos_set:
                 pos_set.remove(pos)
                 is_changed = True
-            if not pos_set:
+            # clean-up the label dict
+            if not pos_set and label in self._tiling.labels:
                 self._tiling.labels.pop(label)
         else:
             if label not in self._tiling.labels:
@@ -223,3 +265,22 @@ class ImagePatchWidget(QWidget):
             self._image_data["tilings"][self._tiling_index].pop("labels", None)
 
         return is_changed
+
+    def enterEvent(self, event):
+        if not self._label_select_box:
+            self.grabKeyboard()
+
+    def leaveEvent(self, event):
+        self.releaseKeyboard()
+
+    def keyPressEvent(self, event: QKeyEvent):
+        if self._mode == "labels" and ord("A") <= event.key() <= ord("Z") and not self._label_select_box:
+            self.releaseKeyboard()
+            self._label_select_box = SelectLabelBox(self, init_text=chr(event.key()).lower())
+            self._label_select_box.signal_set_label.connect(self.signal_set_label)
+            self._label_select_box.signal_closed.connect(self._select_closed)
+            self._label_select_box.setModal(True)
+            self._label_select_box.show()
+
+    def _select_closed(self):
+        self._label_select_box = None

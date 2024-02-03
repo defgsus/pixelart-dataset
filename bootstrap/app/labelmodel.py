@@ -1,9 +1,8 @@
 import json
 from functools import partial
-from typing import List
 from pathlib import Path
 from copy import deepcopy
-import urllib.parse
+from typing import List, Optional, Union
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -39,6 +38,14 @@ class LabelModel(QAbstractItemModel):
 
         return self.createIndex(row, column)
 
+    def index_for_label(self, label: Union[str, dict]) -> QModelIndex:
+        if isinstance(label, dict):
+            label = label["name"]
+        for i, l in enumerate(self._labels):
+            if l["name"] == label:
+                return self.index(i, 0)
+        return QModelIndex()
+
     def data(self, index: QModelIndex, role: Qt.ItemDataRole = ...):
         if not index.isValid():
             return None
@@ -59,6 +66,7 @@ class LabelModel(QAbstractItemModel):
             self._labels = json.loads((self.data_path / "labels.json").read_text())
         else:
             self._labels = []
+        self.modelReset.emit()
 
     def save_preset(self):
         self._labels.sort(key=lambda l: l["name"])
@@ -77,3 +85,29 @@ class LabelModel(QAbstractItemModel):
         for i, l in enumerate(self._labels):
             if l["name"] == label["name"]:
                 return i
+
+        # self.dataChanged.emit(self.index(0, 0), self.index(len(self._labels) - 1, 0))
+        self.modelReset.emit()
+
+    def labels(self) -> List[str]:
+        return [l["name"] for l in self._labels]
+
+    def get_label(self, name: str) -> Optional[dict]:
+        for label in self._labels:
+            if label["name"] == name:
+                return label
+
+    def autocomplete(self, text: str) -> List[str]:
+        if not text:
+            return []
+
+        candidates = {}
+        for label in self._labels:
+            i = 0
+            for i, (t, l) in enumerate(zip(text, label["name"])):
+                if t != l:
+                    break
+            if i:
+                candidates[label["name"]] = i
+
+        return sorted(sorted(candidates), key=lambda c: candidates[c], reverse=True)

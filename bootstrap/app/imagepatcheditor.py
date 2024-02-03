@@ -44,12 +44,19 @@ class ImagePatchEditor(QWidget):
         self.patch_widget = ImagePatchWidget(self)
         self.view.setWidget(self.patch_widget)
         self.patch_widget.signal_image_changed.connect(self._update_image_from_patch_widget)
+        self.patch_widget.signal_info_changed.connect(self._slot_info_changed)
 
         self.controls.signal_zoom_changed.connect(self.patch_widget.set_zoom)
         self.controls.signal_mode_changed.connect(self.patch_widget.set_mode)
         self.controls.signal_tilings_changed.connect(self._slot_tilings_changed)
         self.controls.signal_tiling_selected.connect(self.patch_widget.set_tiling_index)
         self.controls.signal_label_changed.connect(self.patch_widget.set_label)
+
+        self.patch_widget.label_model = self.controls.label_box.model()
+        self.patch_widget.signal_set_label.connect(self.controls.slot_set_label)
+
+        self.info_label = QLabel(self)
+        l.addWidget(self.info_label)
 
     def set_image(self, source: dict, index: int):
         self._source = source
@@ -70,6 +77,9 @@ class ImagePatchEditor(QWidget):
             self.patch_widget.set_image(self._image_data)
 
             #self.signal_save_source_image
+
+    def _slot_info_changed(self, info: str):
+        self.info_label.setText(info)
 
     def _save_source_image(self):
         source = deepcopy(self._source)
@@ -253,5 +263,11 @@ class ImagePatchEditorControls(QWidget):
     def _add_label(self, label: dict):
         index = self.label_box.model().add_label(label)
         self.label_box.setCurrentIndex(index)
+        self.label_box.update()
+        self.signal_label_changed.emit(label)
+
+    def slot_set_label(self, label: dict):
+        index = self.label_box.model().index_for_label(label["name"])
+        self.label_box.setCurrentIndex(index.row())
         self.label_box.update()
         self.signal_label_changed.emit(label)

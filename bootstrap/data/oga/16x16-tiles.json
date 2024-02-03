@@ -1,18 +1,1 @@
-{
-  "url": "https://opengameart.org/content/16x16-tiles",
-  "images": [
-    {
-      "filename": "16x16-tiles_0.png",
-      "tilings": [
-        {
-          "offset_x": 0,
-          "offset_y": 0,
-          "patch_size_x": 16,
-          "patch_size_y": 16,
-          "spacing_x": 1,
-          "spacing_y": 1
-        }
-      ]
-    }
-  ]
-}
+{"url": "https://opengameart.org/content/16x16-tiles", "images": [{"filename": "16x16-tiles_0.png", "tilings": [{"offset_x": 0, "offset_y": 0, "patch_size_x": 16, "patch_size_y": 16, "spacing_x": 1, "spacing_y": 1, "size_x": 0, "size_y": 0, "labels": {"pipe": [[4, 4], [3, 4], [4, 6], [4, 5], [2, 6], [3, 6], [2, 5], [3, 5]], "wall": [[0, 1], [2, 4], [0, 4], [1, 5], [1, 1], [0, 3], [1, 4], [0, 6], [0, 5], [1, 6]], "lava": [[0, 2], [1, 2]], "leakage": [[3, 3], [4, 3]]}}]}]}
