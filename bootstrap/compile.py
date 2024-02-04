@@ -47,6 +47,8 @@ def parse_args():
 
 def iter_patches(
         size: int,
+        # in order to determine all duplicates we need to include them here
+        include_duplicates: bool = True,
 ) -> Generator[dict, None, None]:
 
     patch_size = QSize(size, size)
@@ -58,6 +60,9 @@ def iter_patches(
             image = QImage(image_data["filename"])
             for tiling_index, tiling in enumerate(image_data["tilings"]):
                 tiling = Tiling(image.size(), tiling)
+
+                if include_duplicates:
+                    tiling.duplicate_tiles.clear()
 
                 for rect, tile_pos in tiling.iter_rects(yield_pos=True):
                     patch = image.copy(rect).scaled(patch_size)
@@ -140,6 +145,7 @@ def main(
     num_skipped = 0
     sim_filter = SimilarityFilter()
     label_stats = {}
+    source_stats = {}
 
     for patch_data in tqdm(iter_patches(size=size)):
         source = patch_data["source"]
@@ -176,13 +182,19 @@ def main(
         label = "/".join(sorted(labels)) or "undefined"
         label_stats[label] = label_stats.get(label, 0) + 1
 
+        source_stats[source["url"]] = source_stats.get(source["url"], 0) + 1
+
         if max_patches and len(patches) >= max_patches:
             break
 
-    label_stats = {
-        key: label_stats[key]
-        for key in sorted(label_stats, key=lambda k: label_stats[k], reverse=True)
-    }
+    def _sort_stats(stats):
+        return {
+            key: stats[key]
+            for key in sorted(stats, key=lambda k: stats[k], reverse=True)
+        }
+
+    label_stats = _sort_stats(label_stats)
+    source_stats = _sort_stats(source_stats)
 
     print(f"duplicates: {num_duplicates:,}")
     if duplicates:
@@ -196,6 +208,7 @@ def main(
             patches=patches,
             statistics={
                 "label_distribution": label_stats,
+                "source_distribution": source_stats,
             }
         )
 
