@@ -194,6 +194,7 @@ class ImagePatchEditorControls(QWidget):
         if self._tilings and self.tiling_tab.currentIndex() < len(self._tilings):
             default_tiling = deepcopy(self._tilings[self.tiling_tab.currentIndex()])
             default_tiling.pop("ignore", None)
+            default_tiling.pop("labels", None)
         else:
             default_tiling = get_default_tiling(self._image_size)
 
