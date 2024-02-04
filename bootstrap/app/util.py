@@ -80,7 +80,15 @@ class Tiling:
             duplicates: bool = False,
             yield_pos: bool = False,
             size_minus: int = 0,
+            full_stride: bool = False,
     ) -> Generator[QRect, None, None]:
+
+        patch_size_y = self.patch_size_y
+        patch_size_x = self.patch_size_x
+        if full_stride:
+            patch_size_y = self.stride_y
+            patch_size_x = self.stride_x
+
         for y in range(self.offset_y, self.image_size.height(), self.stride_y):
             if y + self.patch_size_y <= self.image_size.height():
                 for x in range(self.offset_x, self.image_size.width(), self.stride_x):
@@ -96,13 +104,19 @@ class Tiling:
                                         rect = QRect(
                                             self.zoom * x,
                                             self.zoom * y,
-                                            self.zoom * self.patch_size_x - size_minus,
-                                            self.zoom * self.patch_size_y - size_minus,
+                                            self.zoom * patch_size_x - size_minus,
+                                            self.zoom * patch_size_y - size_minus,
                                         )
                                         if yield_pos:
                                             yield rect, tile_pos
                                         else:
                                             yield rect
+
+    def outside_polygon(self):
+        polygon = QPolygon(QRect(QPoint(0, 0), self.image_size * self.zoom))
+        for rect in self.iter_rects(full_stride=True):
+            polygon = polygon.subtracted(QPolygon(rect))
+        return polygon
 
     def to_tile_pos(self, y: int, x: int) -> Tuple[int, int]:
         return (

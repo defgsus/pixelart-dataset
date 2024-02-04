@@ -33,13 +33,21 @@ def parse_args():
         "-o", "--output", type=str, nargs="?", default=None,
         help="Directory to store the dataset",
     )
+    parser.add_argument(
+        "-ms", "--min-size", type=int, nargs="?", default=0,
+        help="Minimum size of a source patch to consider",
+    )
+    parser.add_argument(
+        "-mp", "--max-patches", type=int, nargs="?", default=0,
+        help="Maximum number of patches to compile",
+    )
 
     return vars(parser.parse_args())
 
 
 def iter_patches(
         size: int,
-) -> Generator[Tuple[dict, int, int, Tuple[int, int], QImage], None, None]:
+) -> Generator[dict, None, None]:
 
     patch_size = QSize(size, size)
     model = SourceModel(None)
@@ -53,10 +61,20 @@ def iter_patches(
 
                 for rect, tile_pos in tiling.iter_rects(yield_pos=True):
                     patch = image.copy(rect).scaled(patch_size)
-                    yield source, image_index, tiling_index, tile_pos, patch
+                    yield {
+                        "source": source,
+                        "image_index": image_index,
+                        "tiling_index": tiling_index,
+                        "tile_pos": tile_pos,
+                        "rect": rect,
+                        "image": image,
+                        "image_data": image_data,
+                        "tiling": tiling,
+                        "patch": patch,
+                    }
 
 
-def write_dataset(directory: str, patches: List[QImage]):
+def write_dataset(directory: str, patches: List[QImage], statistics: dict):
     directory = Path(directory)
 
     size = patches[0].width()
@@ -81,29 +99,62 @@ def write_dataset(directory: str, patches: List[QImage]):
     os.makedirs(directory, exist_ok=True)
     pixmap.save(str(directory / "tiles.png"))
 
+    (directory / "info.json").write_text(json.dumps({
+        "count": len(patches),
+        "shape": (3, size, size),
+        "statistics": statistics,
+    }, indent=2))
+
+
+class SimilarityFilter:
+
+    def __init__(self, type: str = "exact"):
+        self.type = type
+        self.hash_set = set()
+
+    def is_similar(self, patch: QImage) -> bool:
+        if self.type == "exact":
+            data = patch.bits().asarray(size=patch.byteCount())
+            hash = hashlib.md5(data).hexdigest()
+            similar = hash in self.hash_set
+            if not similar:
+                self.hash_set.add(hash)
+            return similar
+
+        else:
+            raise ValueError(f"Invalid type `{self.type}`")
+
 
 def main(
         size: int,
         duplicates: bool,
         output: Optional[str],
+        min_size: int,
+        max_patches: int,
 ):
     app = QGuiApplication(sys.argv)
 
-    num_duplicates = 0
-    hash_set = set()
-
-    duplicates_map = {}
     patches = []
+    num_duplicates = 0
+    duplicates_map = {}
+    num_skipped = 0
+    sim_filter = SimilarityFilter()
+    label_stats = {}
 
-    for source, image_index, tiling_index, tile_pos, patch in tqdm(iter_patches(size=size)):
-        data = patch.bits().asarray(size=patch.byteCount())
-        hash = hashlib.md5(data).hexdigest()
+    for patch_data in tqdm(iter_patches(size=size)):
+        source = patch_data["source"]
+        image_data = patch_data["image_data"]
+        tiling_index = patch_data["tiling_index"]
+        tile_pos = patch_data["tile_pos"]
+        tiling = patch_data["tiling"]
+        patch = patch_data["patch"]
 
-        if hash in hash_set:
+        if sim_filter.is_similar(patch):
             num_duplicates += 1
+
+            # store in global duplicate map
             if source["url"] not in duplicates_map:
                 duplicates_map[source["url"]] = {}
-            image_data = source["images"][image_index]
             filename = str(Path(image_data["filename"]).relative_to(config.BOOTSTRAP_WEBCACHE_PATH))
             if filename not in duplicates_map[source["url"]]:
                 duplicates_map[source["url"]][filename] = {}
@@ -112,18 +163,41 @@ def main(
             duplicates_map[source["url"]][filename][str(tiling_index)].append(tile_pos)
             continue
 
-        hash_set.add(hash)
-        patches.append(patch)
-        #if len(patches) >= 1000:
-        #    break
+        # -- filter by min-size --
+        source_size = patch_data["rect"]
+        if any(s < min_size for s in (source_size.width(), source_size.height())):
+            num_skipped += 1
+            continue
 
-    print(f"duplicates: {num_duplicates}")
+        patches.append(patch)
+
+        # -- statistics --
+        labels = tiling.get_labels_at(*tile_pos)
+        label = "/".join(sorted(labels)) or "undefined"
+        label_stats[label] = label_stats.get(label, 0) + 1
+
+        if max_patches and len(patches) >= max_patches:
+            break
+
+    label_stats = {
+        key: label_stats[key]
+        for key in sorted(label_stats, key=lambda k: label_stats[k], reverse=True)
+    }
+
+    print(f"duplicates: {num_duplicates:,}")
     if duplicates:
         (config.BOOTSTRAP_DATA_PATH / "duplicates.json").write_text(json.dumps(duplicates_map))
-    print(f"patches: {len(patches)}")
+    print(f"skipped:    {num_skipped:,}")
+    print(f"patches:    {len(patches):,}")
 
     if output:
-        write_dataset(output, patches)
+        write_dataset(
+            directory=output,
+            patches=patches,
+            statistics={
+                "label_distribution": label_stats,
+            }
+        )
 
 
 if __name__ == "__main__":

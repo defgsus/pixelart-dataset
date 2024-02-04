@@ -123,7 +123,8 @@ class ImagePatchWidget(QWidget):
 
             elif self._mode == "labels":
                 painter.setPen(Qt.NoPen)
-                painter.setBrush(QBrush(QColor(0, 0, 0, 128)))
+                painter.setBrush(QBrush(QColor(0, 0, 0, 196)))
+                painter.drawPolygon(self._tiling.outside_polygon())
                 #painter.drawRects(self._tiling.rects(all_the_rest=True))
 
                 if self._current_label:
@@ -133,10 +134,12 @@ class ImagePatchWidget(QWidget):
                         if self._current_label and self._current_label["name"] == label:
                             color = self._current_label["color"]
                             painter.setPen(QPen(QColor(*color).lighter()))
-                            painter.setBrush(QBrush(QColor(*color, 128)))
+                            col = QColor(*color).darker()
+                            col.setAlpha(140)
+                            painter.setBrush(QBrush(col))
                         else:
                             painter.setPen(Qt.NoPen)
-                            painter.setBrush(QBrush(QColor(0, 0, 0, 196)))
+                            painter.setBrush(QBrush(QColor(0, 0, 0, 160)))
 
                         rects = []
                         for rect, pos in self._tiling.iter_rects(size_minus=1, yield_pos=True):
@@ -166,23 +169,24 @@ class ImagePatchWidget(QWidget):
             self.update_info_label(*pos)
 
     def mouseMoveEvent(self, event: QMouseEvent):
-        pos = self._tiling.to_tile_pos(event.y(), event.x())
+        if self._tiling:
+            pos = self._tiling.to_tile_pos(event.y(), event.x())
 
-        if self._tiling and self._is_drawing:
+            if self._is_drawing:
 
-            if self._mode == "tiles":
-                if self.set_ignor_tile(*pos, state=self._draw_state):
-                    self.update()
-                    self.signal_image_changed.emit(self._image_data)
+                if self._mode == "tiles":
+                    if self.set_ignor_tile(*pos, state=self._draw_state):
+                        self.update()
+                        self.signal_image_changed.emit(self._image_data)
 
-            elif self._mode == "labels" and self._current_label:
-                if self.set_label_tile(*pos, label=self._current_label["name"], remove=not self._draw_state):
-                    self.update()
-                    self.signal_image_changed.emit(self._image_data)
+                elif self._mode == "labels" and self._current_label:
+                    if self.set_label_tile(*pos, label=self._current_label["name"], remove=not self._draw_state):
+                        self.update()
+                        self.signal_image_changed.emit(self._image_data)
 
-        if pos != self._last_hover_label_pos:
-            self._last_hover_label_pos = pos
-            self.update_info_label(*pos)
+            if pos != self._last_hover_label_pos:
+                self._last_hover_label_pos = pos
+                self.update_info_label(*pos)
 
     def mouseReleaseEvent(self, event: QMouseEvent):
         self._is_drawing = False

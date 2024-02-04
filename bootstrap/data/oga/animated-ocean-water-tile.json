@@ -1,18 +1,1 @@
-{
-  "url": "https://opengameart.org/content/animated-ocean-water-tile",
-  "images": [
-    {
-      "filename": "Ocean_SpriteSheet.png",
-      "tilings": [
-        {
-          "offset_x": 0,
-          "offset_y": 0,
-          "patch_size_x": 32,
-          "patch_size_y": 32,
-          "spacing_x": 0,
-          "spacing_y": 0
-        }
-      ]
-    }
-  ]
-}
+{"url": "https://opengameart.org/content/animated-ocean-water-tile", "images": [{"filename": "Ocean_SpriteSheet.png", "tilings": [{"offset_x": 0, "offset_y": 0, "patch_size_x": 32, "patch_size_y": 32, "spacing_x": 0, "spacing_y": 0, "size_x": 0, "size_y": 0, "labels": {"water": [[0, 1], [0, 7], [1, 2], [0, 4], [0, 0], [1, 5], [1, 1], [0, 3], [1, 4], [0, 6], [0, 2], [1, 7], [0, 5], [1, 0], [1, 6], [1, 3]]}}]}]}
