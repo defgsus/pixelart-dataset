@@ -118,7 +118,6 @@ class SourceModel(QAbstractItemModel):
                         if filename in duplicates_map[url]:
                             if str(tiling_index) in duplicates_map[url][filename]:
                                 tiling["duplicates"] = duplicates_map[url][filename][str(tiling_index)]
-
             self._sources.append(source_image_map[url])
 
     def update_source(self, source: dict):

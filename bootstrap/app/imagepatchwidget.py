@@ -108,6 +108,7 @@ class ImagePatchWidget(QWidget):
         painter.drawPixmap(self.rect(), self._image)
 
         if self._tiling:
+
             if self._mode == "tiles":
                 painter.setPen(QPen(QColor(255, 255, 255, 196)))
                 painter.setBrush(QBrush(QColor(255, 255, 255, 50)))
@@ -128,7 +129,6 @@ class ImagePatchWidget(QWidget):
                 #painter.drawRects(self._tiling.rects(all_the_rest=True))
 
                 if self._current_label:
-
                     for label, pos_set in self._tiling.labels.items():
 
                         if self._current_label and self._current_label["name"] == label:

@@ -72,7 +72,9 @@ class Tiling:
             yield_pos: bool = False,
             size_minus: int = 0,
     ) -> List[QRect]:
-        return list(self.iter_rects(ignored=ignored, duplicates=duplicates, yield_pos=yield_pos, size_minus=size_minus))
+        return list(self.iter_rects(
+            ignored=ignored, duplicates=duplicates, yield_pos=yield_pos, size_minus=size_minus
+        ))
 
     def iter_rects(
             self,
