@@ -1,6 +1,9 @@
 beautifulsoup4
-decouple
+#numpy
+#pandas
 PyQt5
+python-decouple
 qdarkstyle
 requests
+#scikit-learn
 tqdm
