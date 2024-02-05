@@ -31,6 +31,8 @@ class ImagePatchWidget(QWidget):
         self._current_label: Optional[dict] = None
         self._last_hover_label_pos = None
         self._label_select_box: Optional[SelectLabelBox] = None
+        self._outside_polygon: Optional[QPolygon] = None
+        self._last_outside_polygon_rect: Optional[QRect] = None
         self.label_model = None
 
         # quickly load throw-away label model
@@ -47,6 +49,7 @@ class ImagePatchWidget(QWidget):
             self._image = None
             self._tiling_index = 0
             self._tiling = None
+            self._outside_polygon = None
             self.setGeometry(QRect(0, 0, 10, 10))
         else:
             if not self._image_data or self._image_data["filename"] != image_data["filename"]:
@@ -59,6 +62,7 @@ class ImagePatchWidget(QWidget):
             self._image_data = image_data
             self._tiling_index = max(0, min(self._tiling_index, len(self._image_data["tilings"]) - 1))
             self._tiling = None
+            self._outside_polygon = None
             if self._image_data["tilings"]:
                 self._tiling = Tiling(self._image.size(), self._image_data["tilings"][self._tiling_index], zoom=self._zoom)
 
@@ -67,6 +71,7 @@ class ImagePatchWidget(QWidget):
 
     def set_zoom(self, zoom: int):
         self._zoom = zoom
+        self._outside_polygon = None
         if self._image is not None:
             r = self._image.rect()
             r = QRect(QPoint(0, 0), QPoint(r.width() * self._zoom, r.height() * self._zoom))
@@ -82,12 +87,14 @@ class ImagePatchWidget(QWidget):
         assert mode in ("tiles", "labels"), f"Got: {mode}"
         self._mode = mode
         self._label_select_box = None
+        self._outside_polygon = None
         self.update()
 
     def set_tiling_index(self, index: int):
         self._label_select_box = None
         self._tiling_index = index
         self._tiling = None
+        self._outside_polygon = None
         if self._image_data:
             self._tiling_index = min(self._tiling_index, len(self._image_data["tilings"]))
             if self._image_data["tilings"]:
@@ -96,6 +103,11 @@ class ImagePatchWidget(QWidget):
         self.update()
 
     def paintEvent(self, event: QPaintEvent):
+        if self._last_outside_polygon_rect != event.rect():
+            if self._last_outside_polygon_rect is None or not self._last_outside_polygon_rect.contains(event.rect()):
+                self._last_outside_polygon_rect = event.rect()
+                self._outside_polygon = None
+
         painter = QPainter(self)
 
         painter.setPen(Qt.NoPen)
@@ -125,8 +137,10 @@ class ImagePatchWidget(QWidget):
             elif self._mode == "labels":
                 painter.setPen(Qt.NoPen)
                 painter.setBrush(QBrush(QColor(0, 0, 0, 196)))
-                painter.drawPolygon(self._tiling.outside_polygon())
-                #painter.drawRects(self._tiling.rects(all_the_rest=True))
+                if self._outside_polygon is None:
+                    # print("calc", event.rect(), self._last_outside_polygon_rect)
+                    self._outside_polygon = self._tiling.outside_polygon(event.rect())
+                painter.drawPolygon(self._outside_polygon)
 
                 if self._current_label:
                     for label, pos_set in self._tiling.labels.items():

@@ -114,10 +114,13 @@ class Tiling:
                                         else:
                                             yield rect
 
-    def outside_polygon(self):
-        polygon = QPolygon(QRect(QPoint(0, 0), self.image_size * self.zoom))
-        for rect in self.iter_rects(full_stride=True):
-            polygon = polygon.subtracted(QPolygon(rect))
+    def outside_polygon(self, display_rect: Optional[QRect] = None):
+        if display_rect is None:
+            display_rect = QRect(QPoint(0, 0), self.image_size * self.zoom)
+        polygon = QPolygon(display_rect)
+        for r in self.iter_rects(full_stride=True):
+            if r.intersects(display_rect):
+                polygon = polygon.subtracted(QPolygon(r))
         return polygon
 
     def to_tile_pos(self, y: int, x: int) -> Tuple[int, int]:
