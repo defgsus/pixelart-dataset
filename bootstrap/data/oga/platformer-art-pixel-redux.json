@@ -1,18 +1,1 @@
-{
-  "url": "https://opengameart.org/content/platformer-art-pixel-redux",
-  "images": [
-    {
-      "filename": "Platformer%20Art%20Pixel%20Redux/spritesheet.png",
-      "tilings": [
-        {
-          "offset_x": 2,
-          "offset_y": 2,
-          "patch_size_x": 21,
-          "patch_size_y": 21,
-          "spacing_x": 2,
-          "spacing_y": 2
-        }
-      ]
-    }
-  ]
-}
+{"url": "https://opengameart.org/content/platformer-art-pixel-redux", "images": [{"filename": "Platformer%20Art%20Pixel%20Redux/spritesheet.png", "tilings": [{"offset_x": 2, "offset_y": 2, "patch_size_x": 21, "patch_size_y": 21, "spacing_x": 2, "spacing_y": 2, "size_x": 0, "size_y": 0}], "alpha": [[94, 129, 162]]}]}

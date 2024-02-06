@@ -15,7 +15,7 @@ from PyQt5.QtGui import *
 from tqdm import tqdm
 
 from bootstrap.app.sourcemodel import SourceModel
-from bootstrap.app.util import Tiling
+from bootstrap.app.util import Tiling, get_qimage_from_source
 from bootstrap import config
 
 
@@ -62,7 +62,7 @@ def iter_patches(
     for i in range(model.rowCount()):
         source = model.data(model.index(i, 0), Qt.ItemDataRole.UserRole)
         for image_index, image_data in enumerate(source["images"]):
-            image = QImage(image_data["filename"])
+            image = get_qimage_from_source(image_data)
             for tiling_index, tiling in enumerate(image_data["tilings"]):
                 tiling = Tiling(image.size(), tiling)
 
@@ -259,6 +259,7 @@ class DatasetCompiler:
         print(f"creating {pixmap.width()}x{pixmap.height()} image")
 
         painter = QPainter(pixmap)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.setBrush(QBrush(QColor(0, 0, 0)))
         painter.drawRect(pixmap.rect())
 

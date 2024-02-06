@@ -1,8 +1,12 @@
+from io import BytesIO
 from copy import deepcopy
 from typing import List, Generator, Tuple, Optional
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+
+import PIL.Image
+import numpy as np
 
 
 DEFAULT_TILING = {
@@ -141,3 +145,71 @@ class Tiling:
             if pos in pos_set:
                 labels.append(key)
         return labels
+
+
+def qimage_to_pil(image: QImage) -> PIL.Image.Image:
+    image = image.convertToFormat(QImage.Format_ARGB32)
+    buffer = QBuffer()
+    buffer.open(QBuffer.ReadWrite)
+    image.save(buffer, "PNG")
+    pil_im = PIL.Image.open(BytesIO(buffer.data()))
+    return pil_im
+
+
+def pil_to_qimage(image: PIL.Image.Image) -> QImage:
+    buffer = BytesIO()
+    image.save(buffer, "PNG")
+    buffer.seek(0)
+    image = QImage()
+    image.loadFromData(buffer.read(), "PNG")
+    return image
+
+
+def qimage_to_numpy(image: QImage) -> np.ndarray:
+    """
+    Convert QImage to numpy array
+
+    The image is converted to ARGB32 format before conversion.
+
+    Result is in torch-style shape: [C, H, W], where C in (red, green, blue, alpha)
+
+    """
+    image = image.convertToFormat(QImage.Format_ARGB32)
+    data = image.bits().asarray(image.byteCount())
+    data = np.array(data, dtype=np.uint8).reshape(image.height(), image.width(), 4)
+    data = data.transpose(2, 0, 1)
+    return np.concatenate([data[2:3, :, :], data[1:2, :, :], data[0:1, :, :], data[3:4, :, :]], axis=0)
+
+
+def numpy_to_qimage(data: np.ndarray) -> QImage:
+    return pil_to_qimage(numpy_to_pil(data))
+
+
+def numpy_to_pil(data: np.ndarray) -> PIL.Image.Image:
+    data = data.transpose(1, 2, 0)
+    data = data.reshape(data.shape[-1], data.shape[0], data.shape[1])
+    image = PIL.Image.frombytes("RGBA", (data.shape[-1], data.shape[-2]), data.tobytes())
+    return image
+
+
+def get_qimage_from_source(image_data: dict) -> QImage:
+    image = QImage(image_data["filename"])
+
+    if image.hasAlphaChannel() or image_data.get("alpha"):
+        image = image.convertToFormat(QImage.Format_ARGB32)
+    else:
+        image = image.convertToFormat(QImage.Format_RGB32)
+
+    if image_data.get("alpha"):
+        image_np = qimage_to_numpy(image)
+
+        for color in image_data["alpha"]:
+            mask = (image_np[0] == color[0]) & (image_np[1] == color[1]) & (image_np[2] == color[2])
+            mask = ~mask
+
+            image_np[3] = image_np[3] * mask
+
+        image = numpy_to_qimage(image_np.astype(np.uint8))
+
+    return image
+

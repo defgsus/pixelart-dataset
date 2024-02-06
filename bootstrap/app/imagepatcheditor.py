@@ -38,13 +38,18 @@ class ImagePatchEditor(QWidget):
 
         self.controls = ImagePatchEditorControls(self)
         l.addWidget(self.controls)
-
+        
+        lh = QHBoxLayout()
+        l.addLayout(lh)
+        
         self.view = QScrollArea(self)
-        l.addWidget(self.view)
+        lh.addWidget(self.view)
         self.patch_widget = ImagePatchWidget(self)
         self.view.setWidget(self.patch_widget)
         self.patch_widget.signal_image_changed.connect(self._update_image_from_patch_widget)
         self.patch_widget.signal_info_changed.connect(self._slot_info_changed)
+
+        lh.addWidget(self.patch_widget.create_control_widget())
 
         self.controls.signal_zoom_changed.connect(self.patch_widget.set_zoom)
         self.controls.signal_mode_changed.connect(self.patch_widget.set_mode)
