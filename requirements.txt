@@ -6,5 +6,6 @@ PyQt5
 python-decouple
 qdarkstyle
 requests
+scikit-image
 # scikit-learn
 tqdm

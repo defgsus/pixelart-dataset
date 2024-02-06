@@ -1,3 +1,4 @@
+import math
 from io import BytesIO
 from copy import deepcopy
 from typing import List, Generator, Tuple, Optional
@@ -7,6 +8,7 @@ from PyQt5.QtGui import *
 
 import PIL.Image
 import numpy as np
+import skimage.measure
 
 
 DEFAULT_TILING = {
@@ -213,3 +215,31 @@ def get_qimage_from_source(image_data: dict) -> QImage:
 
     return image
 
+
+def get_image_bounding_rect(image_channel: np.ndarray) -> QRect:
+
+    min_x, min_y, max_x, max_y = None, None, None, None
+    for cont in skimage.measure.find_contours(image_channel):
+        c_min_x = cont[:, 0].min()
+        c_max_x = cont[:, 0].max()
+        c_min_y = cont[:, 1].min()
+        c_max_y = cont[:, 1].max()
+
+        if min_x is None or c_min_x < min_x:
+            min_x = c_min_x
+        if min_y is None or c_min_y < min_y:
+            min_y = c_min_y
+        if max_x is None or c_max_x > max_x:
+            max_x = c_max_x
+        if max_y is None or c_max_y > max_y:
+            max_y = c_max_y
+
+    if min_x is None:
+        return QRect(0, 0, image_channel.shape[-1], image_channel.shape[-2])
+
+    min_x = int(math.floor(min_x))
+    min_y = int(math.floor(min_y))
+    max_x = min(image_channel.shape[-1], int(math.ceil(max_x)))
+    max_y = min(image_channel.shape[-2], int(math.ceil(max_y)))
+
+    return QRect(min_x, min_y, max_x - min_x, max_y - min_y)

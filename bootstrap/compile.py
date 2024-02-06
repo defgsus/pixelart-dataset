@@ -13,9 +13,10 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 from tqdm import tqdm
+import numpy as np
 
 from bootstrap.app.sourcemodel import SourceModel
-from bootstrap.app.util import Tiling, get_qimage_from_source
+from bootstrap.app.util import Tiling, get_qimage_from_source, get_image_bounding_rect, qimage_to_numpy
 from bootstrap import config
 
 
@@ -172,7 +173,7 @@ class DatasetCompiler:
             tiling_index = patch_data["tiling_index"]
             tile_pos = patch_data["tile_pos"]
             tiling = patch_data["tiling"]
-            patch = patch_data["patch"]
+            patch: QImage = patch_data["patch"]
 
             if self.sim_filter.is_similar(patch):
                 self.num_duplicates += 1
@@ -201,6 +202,10 @@ class DatasetCompiler:
                 self.num_skipped += 1
                 continue
 
+            # -- add meta info --
+
+            patch_data["row_data"] = self._analyze_patch(patch_data)
+
             self.patches.append(patch_data)
 
             if self.max_patches and len(self.patches) >= self.max_patches:
@@ -209,8 +214,37 @@ class DatasetCompiler:
     def _get_single_label(self, labels: List[str]):
         return "/".join(sorted(labels)) or "undefined"
 
-    def _get_rows_and_statistics(self, patches: List[dict]):
+    def _analyze_patch(self, patch_data: dict) -> dict:
+        patch_rect: QRect = patch_data["patch"].rect()
+        patch = qimage_to_numpy(patch_data["patch"])
 
+        has_alpha = np.any(patch[3] < 255)
+
+        # alpha bounding rect
+        if not has_alpha:
+            b_rect = patch_rect
+            is_alpha_inset = False
+        else:
+            b_rect = get_image_bounding_rect(patch[3])
+            is_alpha_inset = not b_rect.contains(patch_rect)
+
+        def _area(rect: QRect):
+            return rect.width() * rect.height()
+
+        if b_rect.bottom() > patch_rect.bottom() or b_rect.right() > patch_rect.right():
+            raise ValueError(f"Messed up alpha-bounding-box in {patch_data}")
+
+        return {
+            "has_alpha": 1 if has_alpha else 0,
+            "is_alpha_inset": 1 if is_alpha_inset else 0,
+            "alpha_bb_left": b_rect.left(),
+            "alpha_bb_top": b_rect.top(),
+            "alpha_bb_right": b_rect.right(),
+            "alpha_bb_bottom": b_rect.bottom(),
+            "opaque_area_ratio": _area(b_rect) / _area(patch_rect),
+        }
+
+    def _get_rows_and_statistics(self, patches: List[dict]):
         rows = []
         label_stats = dict()
         source_stats = dict()
@@ -231,6 +265,7 @@ class DatasetCompiler:
                 "index": idx,
                 "source_id": source_ids[url],
                 "label": patch["label"],
+                **(patch.get("row_data") or {}),
             })
 
         def _sort_stats(stats):
